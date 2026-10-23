@@ -67,7 +67,7 @@ function Field({
         <input
           type={type} placeholder={placeholder} value={value} autoFocus={autoFocus}
           onChange={e => onChange(e.target.value)}
-          className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-white text-sm text-slate-800 outline-none transition-all placeholder:text-slate-300 focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.08)]"
+          className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-white text-sm text-slate-800 outline-none transition-all placeholder:text-slate-300 focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.12)]"
           style={{ paddingRight: suffix ? "2.75rem" : undefined }}
         />
         {suffix && (
@@ -241,7 +241,7 @@ export default function RegisterPage() {
       {/* ── Left panel ──────────────────────────────────────── */}
       <div
         className="hidden lg:flex lg:w-[44%] flex-col justify-between p-14 relative overflow-hidden"
-        style={{ background: "linear-gradient(160deg, #0a1f15 0%, #0e3326 50%, #0f4535 100%)" }}
+        style={{ background: "linear-gradient(160deg, #f3e7d4 0%, #b98a2e 50%, #8b5e1b 100%)" }}
       >
         <GeoBg />
 
@@ -252,27 +252,27 @@ export default function RegisterPage() {
 
         {/* Logo */}
         <div className="relative z-10 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl flex items-center justify-center border border-[rgba(201,168,76,0.3)]"
-            style={{ background: "rgba(201,168,76,0.15)" }}>
-            <GraduationCap className="w-5 h-5" style={{ color: "#c9a84c" }} />
+          <div className="w-10 h-10 rounded-2xl flex items-center justify-center border border-[rgba(156,131,91,0.25)]"
+            style={{ background: "rgba(201,168,76,0.16)" }}>
+            <GraduationCap className="w-5 h-5" style={{ color: "#8b5e1b" }} />
           </div>
           <div>
-            <p className="text-white font-bold text-[17px] leading-none tracking-tight">UniLife</p>
-            <p className="text-[11px] mt-0.5" style={{ color: "rgba(201,168,76,0.6)" }}>Student Portal</p>
+            <p className="text-[#30343b] font-bold text-[17px] leading-none tracking-tight">UniLife</p>
+            <p className="text-[11px] mt-0.5" style={{ color: "rgba(48,52,59,0.68)" }}>Student Portal</p>
           </div>
         </div>
 
         {/* Quote & steps */}
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-8">
-            <div className="h-px w-8" style={{ background: "#c9a84c" }} />
-            <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#c9a84c" }} />
+            <div className="h-px w-8" style={{ background: "#b98a2e" }} />
+            <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#b98a2e" }} />
           </div>
 
           <blockquote className="text-[26px] font-bold leading-[1.3] mb-3 tracking-tight" style={{ color: "#f5f0e8" }}>
             "The best among you are those who learn and then teach others."
           </blockquote>
-          <p className="text-[13px] mb-12" style={{ color: "rgba(245,240,232,0.4)" }}>
+          <p className="text-[13px] mb-12" style={{ color: "rgba(48,52,59,0.64)" }}>
             Knowledge shared is knowledge multiplied.
           </p>
 
@@ -283,8 +283,8 @@ export default function RegisterPage() {
                 <div
                   className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all duration-300"
                   style={{
-                    background: i < step ? "#c9a84c" : i === step ? "#fff" : "rgba(255,255,255,0.08)",
-                    color:      i < step ? "#0a1f15" : i === step ? "#0a1f15" : "rgba(255,255,255,0.3)",
+                    background: i < step ? "#b98a2e" : i === step ? "#fff" : "rgba(255,255,255,0.08)",
+                    color:      i < step ? "#30343b" : i === step ? "#30343b" : "rgba(48,52,59,0.42)",
                   }}
                 >
                   {i < step ? <CheckCircle size={14} /> : i + 1}
@@ -294,14 +294,14 @@ export default function RegisterPage() {
                   {s}
                 </span>
                 {i === step && (
-                  <div className="ml-auto w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#c9a84c" }} />
+                  <div className="ml-auto w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#b98a2e" }} />
                 )}
               </div>
             ))}
           </div>
         </div>
 
-        <p className="relative z-10 text-[11px]" style={{ color: "rgba(201,168,76,0.3)" }}>
+        <p className="relative z-10 text-[11px]" style={{ color: "rgba(48,52,59,0.42)" }}>
           Built for students, by students.
         </p>
       </div>
@@ -312,11 +312,11 @@ export default function RegisterPage() {
 
           {/* Mobile logo */}
           <div className="flex items-center gap-2.5 mb-8 lg:hidden">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, #0e3326, #0f4535)" }}>
-              <GraduationCap className="w-5 h-5 text-white" />
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center border"
+              style={{ background: "linear-gradient(135deg, #d7b462, #c18d2a)", borderColor: "rgba(156,131,91,0.25)" }}>
+              <GraduationCap className="w-5 h-5 text-[#fffaf0]" />
             </div>
-            <span className="font-bold text-slate-900 text-lg tracking-tight">UniLife</span>
+            <span className="font-bold text-[#30343b] text-lg tracking-tight">UniLife</span>
           </div>
 
           {/* Mobile step dots */}
@@ -325,7 +325,7 @@ export default function RegisterPage() {
               <div key={i} className="h-1.5 rounded-full transition-all duration-300"
                 style={{
                   width:      i === step ? 24 : 8,
-                  background: i < step ? "#c9a84c" : i === step ? "#0e3326" : "#e2e8f0",
+                  background: i < step ? "#b98a2e" : i === step ? "#30343b" : "#e2e8f0",
                 }} />
             ))}
           </div>
@@ -334,31 +334,31 @@ export default function RegisterPage() {
           <div className="hidden lg:flex items-center gap-3 mb-8">
             <div className="flex-1 h-1 rounded-full overflow-hidden bg-slate-200">
               <div className="h-full rounded-full transition-all duration-500"
-                style={{ width: `${((step + 1) / STEPS.length) * 100}%`, background: "#0e3326" }} />
+                style={{ width: `${((step + 1) / STEPS.length) * 100}%`, background: "#b98a2e" }} />
             </div>
-            <span className="text-[11px] font-semibold text-slate-400 shrink-0 uppercase tracking-wider">
+            <span className="text-[11px] font-semibold text-[#5c6470] shrink-0 uppercase tracking-wider">
               {step + 1} / {STEPS.length}
             </span>
           </div>
 
           {/* Heading */}
-          <h2 className="text-[26px] font-bold text-slate-900 mb-1 tracking-tight">{headings[step].title}</h2>
-          <p className="text-slate-400 text-sm mb-7">{headings[step].sub}</p>
+          <h2 className="text-[26px] font-bold text-[#30343b] mb-1 tracking-tight">{headings[step].title}</h2>
+          <p className="text-[#5c6470] text-sm mb-7">{headings[step].sub}</p>
 
           {/* Google — step 0 only */}
           {step === 0 && (
             <>
               <button onClick={handleGoogle} disabled={gLoading}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium text-slate-700 bg-white border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all mb-5 disabled:opacity-50">
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium text-[#30343b] bg-white border border-[rgba(48,52,59,0.12)] hover:border-[rgba(48,52,59,0.18)] hover:shadow-md transition-all mb-5 disabled:opacity-50">
                 {gLoading
                   ? <span className="w-4 h-4 border-2 border-slate-300 border-t-slate-600 rounded-full animate-spin" />
                   : GOOGLE_SVG}
                 Continue with Google
               </button>
               <div className="flex items-center gap-3 mb-6">
-                <div className="flex-1 h-px bg-slate-200" />
-                <span className="text-[11px] text-slate-400 font-medium tracking-wide">OR</span>
-                <div className="flex-1 h-px bg-slate-200" />
+                <div className="flex-1 h-px bg-[rgba(48,52,59,0.12)]" />
+                <span className="text-[11px] text-[#5c6470] font-medium tracking-wide">OR</span>
+                <div className="flex-1 h-px bg-[rgba(48,52,59,0.12)]" />
               </div>
             </>
           )}
@@ -381,7 +381,7 @@ export default function RegisterPage() {
                       placeholder="Auto-generated"
                       value={form.studentId}
                       onChange={e => setForm(p => ({ ...p, studentId: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-white text-sm text-slate-800 outline-none transition-all placeholder:text-slate-300 focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.08)]"
+                      className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-white text-sm text-slate-800 outline-none transition-all placeholder:text-slate-300 focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.12)]"
                     />
                     <p className="text-[11px] text-slate-400 -mt-0.5">Leave as-is or enter your real ID</p>
                   </div>
@@ -510,21 +510,21 @@ export default function RegisterPage() {
           <div className="flex gap-3 mt-8">
             {step > 0 && (
               <button onClick={back}
-                className="flex items-center gap-2 px-4 py-3 rounded-2xl border border-slate-200 bg-white text-sm font-medium text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all">
+                className="flex items-center gap-2 px-4 py-3 rounded-2xl border border-[rgba(48,52,59,0.12)] bg-white text-sm font-medium text-[#49515d] hover:bg-[#f6f0e7] hover:border-[rgba(48,52,59,0.18)] transition-all">
                 <ArrowLeft size={15} />
               </button>
             )}
             <div className="flex-1">
               {step < STEPS.length - 1 ? (
                 <button onClick={next}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-semibold text-white transition-all hover:brightness-110 active:scale-[0.98]"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #0f4535)" }}>
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-semibold text-[#fffaf0] transition-all hover:brightness-110 active:scale-[0.98]"
+                  style={{ background: "linear-gradient(135deg, #d7b462, #b08431)" }}>
                   Continue <ArrowRight size={15} />
                 </button>
               ) : (
                 <button onClick={handleRegister} disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-semibold text-white transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-60"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #0f4535)" }}>
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-semibold text-[#fffaf0] transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-60"
+                  style={{ background: "linear-gradient(135deg, #d7b462, #b08431)" }}>
                   {loading
                     ? <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Creating account…</>
                     : mode === "rep" ? "Register & Apply" : "Create Account"}
@@ -533,9 +533,9 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <p className="text-center text-[13px] text-slate-400 mt-6">
+          <p className="text-center text-[13px] text-[#5c6470] mt-6">
             Already have an account?{" "}
-            <Link href="/auth/login" className="font-semibold hover:underline" style={{ color: "#0e3326" }}>
+            <Link href="/auth/login" className="font-semibold hover:underline" style={{ color: "#8b5e1b" }}>
               Sign in
             </Link>
           </p>

@@ -147,7 +147,7 @@ export default function FinancePage() {
           </button>
           <button onClick={() => setShowModal(true)}
             className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97]"
-            style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+            style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
             <Plus size={15} /> Add Expense
           </button>
         </div>
@@ -158,12 +158,12 @@ export default function FinancePage() {
         <div className="flex flex-col gap-1.5">
           <label className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">Month</label>
           <input type="month" value={monthFilter} onChange={e => setMonthFilter(e.target.value)}
-            className="px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)] bg-white" />
+            className="px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)] bg-white" />
         </div>
         <div className="flex flex-col gap-1.5">
           <label className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">Exchange Rate (1 USD = ? KHR)</label>
           <input type="number" value={rate} onChange={e => setRate(Number(e.target.value))}
-            className="px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)] w-36 bg-white" />
+            className="px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)] w-36 bg-white" />
         </div>
       </div>
 
@@ -273,7 +273,7 @@ export default function FinancePage() {
               onClick={() => setCategoryFilter("all")}
               className="text-xs px-3 py-1 rounded-full font-medium border transition-all"
               style={categoryFilter === "all"
-                ? { background: "linear-gradient(135deg, #0e3326, #0f4535)", color: "#fff", borderColor: "transparent" }
+                ? { background: "linear-gradient(135deg, #b98a2e, #8b5e1b)", color: "#fff", borderColor: "transparent" }
                 : { borderColor: "#e8e4da", color: "#64748b" }}>
               All
             </button>
@@ -284,7 +284,7 @@ export default function FinancePage() {
                   onClick={() => setCategoryFilter(categoryFilter === cat.value ? "all" : cat.value)}
                   className="flex items-center gap-1.5 text-xs px-3 py-1 rounded-full font-medium border transition-all"
                   style={categoryFilter === cat.value
-                    ? { background: "linear-gradient(135deg, #0e3326, #175c3a)", color: "#fff", borderColor: "transparent" }
+                    ? { background: "linear-gradient(135deg, #b98a2e, #a6731d)", color: "#fff", borderColor: "transparent" }
                     : { borderColor: "#e8e4da", color: "#64748b" }}>
                   <CatIcon size={11} /> {cat.label}
                 </button>
@@ -298,14 +298,14 @@ export default function FinancePage() {
         ) : monthly.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-3"
-              style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+              style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
               <Wallet size={24} className="text-white/70" />
             </div>
             <p className="text-slate-500 font-semibold text-sm">No expenses this month</p>
             <p className="text-slate-400 text-xs mt-1">Start tracking your spending</p>
             <button onClick={() => setShowModal(true)}
               className="mt-4 flex items-center gap-2 px-5 py-2.5 rounded-2xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97]"
-              style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+              style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
               <Plus size={15} /> Add First Expense
             </button>
           </div>
@@ -367,7 +367,7 @@ export default function FinancePage() {
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium text-sm">$</span>
                   <input type="number" step="0.01" min="0" placeholder="0.00" value={form.amountUSD}
                     onChange={e => setForm(p => ({ ...p, amountUSD: e.target.value }))}
-                    className="w-full pl-8 pr-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)] bg-white" />
+                    className="w-full pl-8 pr-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)] bg-white" />
                 </div>
                 {form.amountUSD && parseFloat(form.amountUSD) > 0 && (
                   <p className="text-[11px] text-slate-400 mt-1">≈ ៛{Math.round(parseFloat(form.amountUSD) * rate).toLocaleString()} KHR</p>
@@ -408,13 +408,13 @@ export default function FinancePage() {
                   <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Date *</label>
                   <input type="date" value={form.expenseDate}
                     onChange={e => setForm(p => ({ ...p, expenseDate: e.target.value }))}
-                    className="w-full px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)] bg-white" />
+                    className="w-full px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)] bg-white" />
                 </div>
                 <div>
                   <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Note</label>
                   <input placeholder="e.g. Lunch" value={form.note}
                     onChange={e => setForm(p => ({ ...p, note: e.target.value }))}
-                    className="w-full px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)] bg-white placeholder:text-slate-300" />
+                    className="w-full px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)] bg-white placeholder:text-slate-300" />
                 </div>
               </div>
 
@@ -425,7 +425,7 @@ export default function FinancePage() {
                 </button>
                 <button type="submit" disabled={saving}
                   className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97] disabled:opacity-60"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                  style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                   {saving
                     ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     : "Add Expense"}
@@ -459,7 +459,7 @@ export default function FinancePage() {
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium text-sm">$</span>
                   <input type="number" min="0" step="1" value={budget}
                     onChange={e => setBudget(Number(e.target.value))}
-                    className="w-full pl-8 pr-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)] bg-white" />
+                    className="w-full pl-8 pr-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)] bg-white" />
                 </div>
                 {budget > 0 && (
                   <p className="text-[11px] text-slate-400 mt-1">≈ ៛{Math.round(budget * rate).toLocaleString()} KHR/month</p>
@@ -472,7 +472,7 @@ export default function FinancePage() {
                 </button>
                 <button onClick={handleSaveBudget}
                   className="flex-1 py-2.5 rounded-xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97]"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                  style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                   Save Budget
                 </button>
               </div>

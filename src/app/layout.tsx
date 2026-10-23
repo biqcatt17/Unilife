@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} app-shell`}>
         <AuthProvider>
           {children}
           <Toaster position="top-right" />

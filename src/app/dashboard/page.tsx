@@ -80,7 +80,7 @@ function StatCard({ href, icon: Icon, value, label, color, loading }: {
 }) {
   return (
     <Link href={href}
-      className="group relative bg-white rounded-xl p-4 border border-[#e4e4dc] hover:border-slate-300 card-lift transition-all duration-200">
+      className="group relative paper-card p-4 card-lift transition-all duration-200">
       <div className="flex items-center justify-between mb-3">
         <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: color.bg }}>
           <Icon className="w-4 h-4" style={{ color: color.text }} />
@@ -92,7 +92,7 @@ function StatCard({ href, icon: Icon, value, label, color, loading }: {
       ) : (
         <p className="text-[26px] font-bold leading-none mb-1 text-slate-900">{value}</p>
       )}
-      <p className="text-[12px] text-slate-400 font-medium">{label}</p>
+      <p className="text-[12px] text-slate-500 font-medium uppercase tracking-[0.14em]">{label}</p>
     </Link>
   );
 }
@@ -105,15 +105,15 @@ function Card({ title, href, linkLabel = "See all", icon: Icon, iconBg, iconColo
   skeleton?: React.ReactNode;
 }) {
   return (
-    <div className="bg-white rounded-xl p-5 border border-[#e4e4dc] card-lift">
+    <div className="paper-card p-5 card-lift">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${iconBg}`}>
             <Icon className={`w-3.5 h-3.5 ${iconColor}`} />
           </div>
-          <h2 className="font-semibold text-slate-800 text-sm">{title}</h2>
+          <h2 className="handwritten text-slate-800 text-[1.5rem] leading-none tracking-wide">{title}</h2>
         </div>
-        <Link href={href} className="flex items-center gap-0.5 text-[11px] font-medium hover:underline" style={{ color: "#0e3326" }}>
+        <Link href={href} className="flex items-center gap-0.5 text-[11px] font-medium hover:underline" style={{ color: "#8b5e1b" }}>
           {linkLabel} <ArrowRight size={11} />
         </Link>
       </div>
@@ -193,6 +193,10 @@ export default function DashboardPage() {
     sum + studyLogs.filter(l => l.date === d.date).reduce((s: number, l: any) => s + l.hours, 0), 0);
   const todayStudy  = studyLogs.filter(l => l.date === today).reduce((s: number, l: any) => s + l.hours, 0);
   const studyStreak = calcStreak(studyLogs);
+  const weeklyStudyProgress = Math.min((weekStudyHours / 20) * 100, 100);
+  const productivitySummary = tasks.length
+    ? Math.round((completedCount / tasks.length) * 100)
+    : 0;
 
   const studyChartData = weekDays.map(d => ({
     day:   d.label,
@@ -204,6 +208,14 @@ export default function DashboardPage() {
   const todayClasses = courses
     .filter(c => c.days?.includes(todayDOW))
     .sort((a, b) => (a.startTime ?? "").localeCompare(b.startTime ?? ""));
+
+  const selfMarkTodayClasses = todayClasses.filter(course => !course.isOfficial);
+  const nextClass = todayClasses[0] ?? null;
+  const todayTasks = tasks.filter(task => task.dueDate === today && task.status !== "completed");
+  const unmarkedTodayCourses = selfMarkTodayClasses.filter(course =>
+    !attendance.some(record => record.courseId === course.id && record.date === today)
+  );
+  const attendanceReminderCourses = unmarkedTodayCourses.slice(0, 2);
 
   // ── Finance ───────────────────────────────────────────────
   const thisMonth     = today.slice(0, 7); // "YYYY-MM"
@@ -258,12 +270,12 @@ export default function DashboardPage() {
       {/* ── Greeting ──────────────────────────────────────── */}
       <div className="flex items-start justify-between flex-wrap gap-4 mb-6">
         <div>
-          <p className="text-[13px] text-slate-400 mb-1">{greeting} · {dateStr}</p>
-          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">{firstName}</h1>
+          <p className="text-[13px] text-slate-500 mb-1 uppercase tracking-[0.18em]">{greeting} · {dateStr}</p>
+          <h1 className="text-[3rem] leading-none text-slate-900 handwritten">{firstName}</h1>
           <p className="text-[13px] text-slate-500 mt-1 max-w-md">{insight.text}</p>
         </div>
         {!loading && (
-          <div className="flex items-center gap-2.5 bg-white border border-[#e4e4dc] rounded-xl px-4 py-2.5 self-start">
+          <div className="flex items-center gap-2.5 paper-card px-4 py-2.5 self-start border border-[#e4e4dc] rounded-2xl">
             <Clock size={14} className="text-slate-400" />
             <div>
               <p className="text-slate-900 font-bold text-base leading-none">{todayStudy.toFixed(1)}h</p>
@@ -275,7 +287,7 @@ export default function DashboardPage() {
 
       {/* ── Admin setup banner ────────────────────────────── */}
       {!loading && profile?.role === "admin" && !profile?.classId && (
-        <div className="mb-5 flex items-center gap-3 px-4 py-3.5 rounded-xl border border-slate-200 bg-slate-50 flex-wrap">
+        <div className="mb-5 flex items-center gap-3 px-4 py-3.5 rounded-2xl border border-slate-200 bg-[#f5f3ea] flex-wrap paper-card">
           <GraduationCap size={16} className="text-slate-500 shrink-0" />
           <p className="text-sm text-slate-600 flex-1">Class not set up yet. Create your class so students can join.</p>
           <a href="/admin" className="text-sm font-medium text-slate-900 hover:underline shrink-0">Go to Admin Panel →</a>
@@ -284,7 +296,7 @@ export default function DashboardPage() {
 
       {/* ── No-class banner ───────────────────────────────── */}
       {!loading && !profile?.classId && profile?.role !== "admin" && !soloMode && (
-        <div className="mb-5 flex items-center gap-4 px-4 py-3.5 rounded-xl border border-[#e4e4dc] bg-white flex-wrap">
+        <div className="mb-5 flex items-center gap-4 px-4 py-3.5 rounded-2xl border border-[#e4e4dc] bg-[#fffdf8] flex-wrap paper-card">
           <GraduationCap size={16} className="text-slate-400 shrink-0" />
           <p className="text-sm text-slate-600 flex-1">You're not in a class yet. Enter your join code to get started.</p>
           <form onSubmit={handleJoinClass} className="flex gap-2 shrink-0">
@@ -293,11 +305,11 @@ export default function DashboardPage() {
               onChange={e => setJoinCode(e.target.value.toUpperCase())}
               placeholder="Join code"
               maxLength={8}
-              className="w-28 px-3 py-1.5 rounded-lg border border-[#e8e4da] text-sm font-mono uppercase tracking-widest outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.08)]"
+              className="paper-input w-28 px-3 py-1.5 text-sm font-mono uppercase tracking-widest"
             />
             <button type="submit" disabled={joining || !joinCode.trim()}
-              className="px-3 py-1.5 rounded-lg text-white text-sm font-medium transition-all hover:brightness-110 disabled:opacity-50"
-              style={{ background: "linear-gradient(135deg, #0e3326, #0f4535)" }}>
+              className="paper-button px-3 py-1.5 text-white text-sm font-medium transition-all hover:brightness-110 disabled:opacity-50"
+              style={{ background: "linear-gradient(135deg, #b98a2e, #8b5e1b)" }}>
               {joining ? "…" : "Join"}
             </button>
           </form>
@@ -313,7 +325,7 @@ export default function DashboardPage() {
         const ann = announcements.find(a => a.pinned) ?? announcements[0];
         if (!ann || dismissedAnn === ann.id) return null;
         return (
-          <div className="flex items-start gap-3 mb-5 px-4 py-3 rounded-xl border border-blue-100 bg-blue-50">
+          <div className="flex items-start gap-3 mb-5 px-4 py-3 rounded-2xl border border-blue-100 bg-[#edf5ff] paper-card">
             <Bell size={15} className="text-blue-500 shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-blue-900">{ann.title}</p>
@@ -327,7 +339,7 @@ export default function DashboardPage() {
       {/* ── Overdue alert ─────────────────────────────────── */}
       {!loading && overdueTasks.length > 0 && (
         <Link href="/tasks"
-          className="flex items-center gap-3 mb-5 px-4 py-3 rounded-2xl border border-red-200 bg-red-50 hover:bg-red-100 transition-colors">
+          className="flex items-center gap-3 mb-5 px-4 py-3 rounded-2xl border border-red-200 bg-[#fff0ee] hover:bg-red-100 transition-colors paper-card">
           <div className="w-8 h-8 bg-red-100 rounded-xl flex items-center justify-center shrink-0">
             <AlertTriangle size={16} className="text-red-600" />
           </div>
@@ -341,6 +353,173 @@ export default function DashboardPage() {
             </p>
           </div>
           <ChevronRight size={16} className="text-red-400 shrink-0" />
+        </Link>
+      )}
+
+      {!loading && (
+        <div className="mb-6 paper-card rounded-3xl p-4 md:p-5 border border-[#e8e4da] bg-[linear-gradient(135deg,#fffdf8_0%,#fffaf1_100%)]">
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Today</p>
+              <h2 className="text-[1.5rem] font-bold text-slate-800 leading-none mt-1">Your day</h2>
+            </div>
+            <div className="rounded-full border border-[#eadfc1] bg-[#fff9ee] px-2.5 py-1 text-[11px] font-semibold text-[#8b5e1b]">
+              {todayClasses.length} class{todayClasses.length === 1 ? "" : "es"}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="rounded-2xl border border-[#E9E3D4] bg-white/85 p-3">
+              <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400 mb-2">Next class</p>
+              {nextClass ? (
+                <>
+                  <p className="text-[15px] font-bold text-slate-800 truncate">{nextClass.name}</p>
+                  <p className="text-[12px] text-slate-500 mt-1">
+                    {nextClass.startTime} – {nextClass.endTime}
+                  </p>
+                  {nextClass.room && <p className="text-[11px] text-slate-400 mt-1">{nextClass.room}</p>}
+                </>
+              ) : (
+                <p className="text-sm text-slate-500">No class scheduled.</p>
+              )}
+            </div>
+
+            <div className="rounded-2xl border border-[#E9E3D4] bg-white/85 p-3">
+              <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400 mb-2">Attendance</p>
+              {unmarkedTodayCourses.length > 0 ? (
+                <>
+                  <p className="text-[15px] font-bold text-amber-700">{unmarkedTodayCourses.length} left</p>
+                  <p className="text-[12px] text-slate-500 mt-1 truncate">
+                    {attendanceReminderCourses.map(c => c.code).join(" · ")}
+                    {unmarkedTodayCourses.length > attendanceReminderCourses.length ? ` +${unmarkedTodayCourses.length - attendanceReminderCourses.length}` : ""}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="text-[15px] font-bold text-emerald-600">All set</p>
+                  <p className="text-[12px] text-slate-500 mt-1">No self-mark classes left today.</p>
+                </>
+              )}
+            </div>
+
+            <div className="rounded-2xl border border-[#E9E3D4] bg-white/85 p-3">
+              <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400 mb-2">Tasks</p>
+              {todayTasks.length > 0 ? (
+                <>
+                  <p className="text-[15px] font-bold text-slate-800">{todayTasks.length} due</p>
+                  <p className="text-[12px] text-slate-500 mt-1 truncate">{todayTasks[0].title}</p>
+                </>
+              ) : (
+                <>
+                  <p className="text-[15px] font-bold text-emerald-600">Clear</p>
+                  <p className="text-[12px] text-slate-500 mt-1">No tasks due today.</p>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2 mt-4">
+            <Link href="/attendance" className="inline-flex items-center gap-1.5 rounded-full bg-[#b98a2e] px-3 py-1.5 text-[12px] font-semibold text-white hover:brightness-110 transition-all">
+              Log attendance <ChevronRight size={12} />
+            </Link>
+            <Link href="/timetable" className="inline-flex items-center gap-1.5 rounded-full border border-[#e8e4da] bg-white px-3 py-1.5 text-[12px] font-semibold text-slate-600 hover:bg-slate-50 transition-all">
+              Timetable
+            </Link>
+            <Link href="/tasks" className="inline-flex items-center gap-1.5 rounded-full border border-[#e8e4da] bg-white px-3 py-1.5 text-[12px] font-semibold text-slate-600 hover:bg-slate-50 transition-all">
+              Tasks
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {!loading && (
+        <div className="mb-6 grid grid-cols-1 lg:grid-cols-[1.4fr_0.9fr] gap-4">
+          <div className="paper-card rounded-3xl p-4 md:p-5 border border-[#e8e4da] bg-[linear-gradient(135deg,#faf7f1_0%,#f7f2ea_100%)]">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-violet-100 flex items-center justify-center">
+                  <Flame size={15} className="text-violet-600" />
+                </div>
+                <h3 className="text-[1.05rem] font-bold text-slate-800">Study streak</h3>
+              </div>
+              <span className="text-[12px] font-semibold px-2.5 py-1 rounded-full bg-violet-100 text-violet-700">
+                {studyStreak} day{studyStreak === 1 ? "" : "s"}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-2xl bg-white/90 border border-[#eee5d7] p-3">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">Today</p>
+                <p className="mt-2 text-[26px] font-bold text-slate-800 leading-none">{todayStudy.toFixed(1)}h</p>
+                <p className="text-[11px] text-slate-400 mt-1">study time</p>
+              </div>
+              <div className="rounded-2xl bg-white/90 border border-[#eee5d7] p-3">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">This week</p>
+                <p className="mt-2 text-[26px] font-bold text-slate-800 leading-none">{weekStudyHours.toFixed(1)}h</p>
+                <p className="text-[11px] text-slate-400 mt-1">target 20h</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="paper-card rounded-3xl p-4 md:p-5 border border-[#e8e4da] bg-[linear-gradient(135deg,#fffdf8_0%,#fffaf3_100%)]">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center">
+                  <TrendingUp size={15} className="text-emerald-600" />
+                </div>
+                <h3 className="text-[1.05rem] font-bold text-slate-800">Productivity</h3>
+              </div>
+              <span className="text-[12px] font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">
+                {productivitySummary}%
+              </span>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <div className="flex justify-between text-[11px] text-slate-500 mb-1.5">
+                  <span>Weekly goal</span>
+                  <span>{Math.round(weeklyStudyProgress)}%</span>
+                </div>
+                <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-full rounded-full bg-gradient-to-r from-violet-500 to-emerald-400" style={{ width: `${weeklyStudyProgress}%` }} />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-2xl bg-white/90 border border-[#eee5d7] p-3">
+                  <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">Tasks</p>
+                  <p className="mt-2 text-[24px] font-bold text-slate-800 leading-none">{completedCount}</p>
+                  <p className="text-[11px] text-slate-400 mt-1">done</p>
+                </div>
+                <div className="rounded-2xl bg-white/90 border border-[#eee5d7] p-3">
+                  <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">Focus</p>
+                  <p className="mt-2 text-[24px] font-bold text-slate-800 leading-none">{Math.round(todayStudy * 60)}</p>
+                  <p className="text-[11px] text-slate-400 mt-1">mins</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {!loading && selfMarkTodayClasses.length > 0 && unmarkedTodayCourses.length > 0 && (
+        <Link href="/attendance"
+          className="flex items-center gap-3 mb-5 px-4 py-3 rounded-2xl border border-amber-200 bg-[#fffaf0] hover:bg-[#fff3d7] transition-colors paper-card">
+          <div className="w-8 h-8 bg-amber-100 rounded-xl flex items-center justify-center shrink-0">
+            <Bell size={16} className="text-amber-600" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-amber-800">
+              Attendance reminder
+            </p>
+            <p className="text-xs text-amber-700 mt-0.5 truncate">
+              {attendanceReminderCourses.map(course => course.code).join(" · ")}
+              {unmarkedTodayCourses.length > attendanceReminderCourses.length ? ` · +${unmarkedTodayCourses.length - attendanceReminderCourses.length} more` : ""}
+            </p>
+          </div>
+          <div className="flex items-center gap-1.5 shrink-0 text-amber-700 text-xs font-semibold">
+            Log now <ChevronRight size={13} />
+          </div>
         </Link>
       )}
 
@@ -440,7 +619,7 @@ export default function DashboardPage() {
           {upcomingTasks.length === 0 ? (
             <div className="flex flex-col items-center py-8 text-center">
               <p className="text-sm text-slate-500">No pending tasks</p>
-              <Link href="/tasks" className="text-xs font-medium hover:underline mt-1" style={{ color: "#0e3326" }}>Add a task</Link>
+              <Link href="/tasks" className="text-xs font-medium hover:underline mt-1" style={{ color: "#b98a2e" }}>Add a task</Link>
             </div>
           ) : (
             <ul className="space-y-1">
@@ -485,7 +664,7 @@ export default function DashboardPage() {
           {budget === 0 ? (
             <div className="flex flex-col items-center py-8 text-center">
               <p className="text-sm text-slate-500">No budget set</p>
-              <Link href="/profile" className="text-xs font-medium hover:underline mt-1" style={{ color: "#0e3326" }}>Set monthly budget</Link>
+              <Link href="/profile" className="text-xs font-medium hover:underline mt-1" style={{ color: "#b98a2e" }}>Set monthly budget</Link>
             </div>
           ) : (
             <div className="flex flex-col gap-4">
@@ -534,7 +713,7 @@ export default function DashboardPage() {
           {upcoming.length === 0 ? (
             <div className="flex flex-col items-center py-8 text-center">
               <p className="text-sm text-slate-500">No upcoming events</p>
-              <Link href="/events" className="text-xs font-medium hover:underline mt-1" style={{ color: "#0e3326" }}>Browse events</Link>
+              <Link href="/events" className="text-xs font-medium hover:underline mt-1" style={{ color: "#b98a2e" }}>Browse events</Link>
             </div>
           ) : (
             <ul className="space-y-2">

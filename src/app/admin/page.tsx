@@ -337,7 +337,7 @@ export default function AdminPage() {
           {/* Welcome header */}
           <div className="text-center mb-8">
             <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
-              style={{ background: "linear-gradient(135deg, #0e3326, #0f4535)" }}>
+              style={{ background: "linear-gradient(135deg, #b98a2e, #8b5e1b)" }}>
               <GraduationCap className="w-7 h-7 text-white" />
             </div>
             <h1 className="text-2xl font-bold text-slate-900">Welcome, {firstName}!</h1>
@@ -358,7 +358,7 @@ export default function AdminPage() {
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                     step.n !== 1 ? "bg-slate-100 text-slate-400" : "text-white"
                   }`}
-                  style={step.n === 1 ? { background: "linear-gradient(135deg, #0e3326, #0f4535)" } : undefined}
+                  style={step.n === 1 ? { background: "linear-gradient(135deg, #b98a2e, #8b5e1b)" } : undefined}
                   >{step.n}</div>
                   <p className={`text-[11px] mt-1 font-medium ${step.n === 1 ? "text-slate-700" : "text-slate-400"}`}>{step.label}</p>
                 </div>
@@ -397,7 +397,7 @@ export default function AdminPage() {
                 <input placeholder="Leave blank to auto-generate"
                   value={classForm.joinCode} onChange={e => setClassForm(p => ({ ...p, joinCode: e.target.value.toUpperCase() }))}
                   maxLength={8}
-                  className="px-3 py-2.5 rounded-lg border border-slate-200 text-sm outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.08)] uppercase tracking-widest font-mono" />
+                  className="px-3 py-2.5 rounded-lg border border-slate-200 text-sm outline-none focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.12)] uppercase tracking-widest font-mono" />
                 <div className="flex items-start gap-2 px-3 py-2.5 rounded-lg bg-slate-50">
                   <Copy className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
                   <p className="text-xs text-slate-500">
@@ -454,7 +454,7 @@ export default function AdminPage() {
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-          style={{ background: "linear-gradient(135deg, #0e3326, #0f4535)" }}>
+          style={{ background: "linear-gradient(135deg, #b98a2e, #8b5e1b)" }}>
           <ShieldCheck className="w-4 h-4 text-white" />
         </div>
         <div>
@@ -466,7 +466,7 @@ export default function AdminPage() {
       {/* Class info banner */}
       {myClass && (
         <div className="rounded-xl px-5 py-4 mb-5 flex items-center justify-between flex-wrap gap-3"
-          style={{ background: "linear-gradient(135deg, #0a1f15, #0e3326)" }}>
+          style={{ background: "linear-gradient(135deg, #f3e7d4, #b98a2e)" }}>
           <div className="flex items-center gap-3">
             <GraduationCap className="w-4 h-4 text-slate-400 shrink-0" />
             <div>
@@ -532,7 +532,7 @@ export default function AdminPage() {
                 <label className="text-sm font-medium text-slate-700">Body</label>
                 <textarea placeholder="Write your announcement here..." value={annForm.body} rows={4}
                   onChange={e => setAnnForm(p => ({ ...p, body: e.target.value }))}
-                  className="px-3 py-2.5 rounded-lg border border-slate-200 text-sm outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.08)] resize-none" />
+                  className="px-3 py-2.5 rounded-lg border border-slate-200 text-sm outline-none focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.12)] resize-none" />
               </div>
               <label className="flex items-center gap-2 cursor-pointer select-none">
                 <input type="checkbox" checked={annForm.pinned}
@@ -618,7 +618,7 @@ export default function AdminPage() {
                       <button key={d} type="button" onClick={() => toggleDay(d)}
                         className="px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all"
                         style={courseForm.days.includes(d)
-                          ? { background: "linear-gradient(135deg, #0e3326, #0f4535)", color: "#fff", borderColor: "transparent" }
+                          ? { background: "linear-gradient(135deg, #b98a2e, #8b5e1b)", color: "#fff", borderColor: "transparent" }
                           : { borderColor: "#e8e4da", color: "#64748b" }}>{d}</button>
                     ))}
                   </div>
@@ -709,7 +709,7 @@ export default function AdminPage() {
                 <div className="flex items-center gap-2">
                   <label className="text-xs text-slate-500">Date</label>
                   <input type="date" value={markDate} onChange={e => setMarkDate(e.target.value)}
-                    className="px-3 py-1.5 rounded-lg border border-slate-200 text-sm outline-none focus:border-[#0e3326]" />
+                    className="px-3 py-1.5 rounded-lg border border-slate-200 text-sm outline-none focus:border-[#b98a2e]" />
                 </div>
               </div>
 
@@ -801,7 +801,7 @@ export default function AdminPage() {
                   <label className="text-sm font-medium text-slate-700">Description</label>
                   <textarea placeholder="Optional details..." value={eventForm.description} rows={3}
                     onChange={e => setEventForm(p => ({ ...p, description: e.target.value }))}
-                    className="px-3 py-2.5 rounded-lg border border-slate-200 text-sm outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.08)] resize-none" />
+                    className="px-3 py-2.5 rounded-lg border border-slate-200 text-sm outline-none focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.12)] resize-none" />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <Input label="Date *" type="date" value={eventForm.eventDate}
@@ -907,7 +907,7 @@ export default function AdminPage() {
                           <td className="px-4 py-3">
                             <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full"
                               style={u.role === "admin"
-                                ? { background: "linear-gradient(135deg, #0e3326, #0f4535)", color: "#fff" }
+                                ? { background: "linear-gradient(135deg, #b98a2e, #8b5e1b)", color: "#fff" }
                                 : { background: "#f1f5f9", color: "#64748b" }}>
                               {u.role === "admin" ? "Admin" : "Student"}
                             </span>

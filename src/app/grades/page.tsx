@@ -31,7 +31,7 @@ const TYPE_STYLES: Record<AssessmentType, { bg: string; text: string; dot: strin
   Lab:        { bg: "#ecfeff", text: "#0e7490", dot: "#06b6d4" },
 };
 
-const INPUT_CLS = "w-full px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm text-slate-800 outline-none transition-all placeholder:text-slate-300 focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)] bg-white";
+const INPUT_CLS = "w-full px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm text-slate-800 outline-none transition-all placeholder:text-slate-300 focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)] bg-white";
 
 const pct    = (s: number, t: number) => t > 0 ? (s / t) * 100 : 0;
 const fmtPct = (n: number) => `${n.toFixed(1)}%`;
@@ -99,8 +99,8 @@ function GPACalculator() {
         className="w-full flex items-center justify-between px-5 py-4 hover:bg-[#faf8f4] transition-colors">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center"
-            style={{ background: "rgba(14,51,38,0.08)" }}>
-            <Calculator size={15} style={{ color: "#0e3326" }} />
+            style={{ background: "rgba(201,168,76,0.12)" }}>
+            <Calculator size={15} style={{ color: "#b98a2e" }} />
           </div>
           <div className="text-left">
             <p className="text-[13px] font-semibold text-slate-800">GPA Calculator</p>
@@ -176,7 +176,7 @@ function GPACalculator() {
 
           <button onClick={addRow}
             className="flex items-center gap-1.5 text-[12px] font-semibold transition-colors hover:opacity-70"
-            style={{ color: "#0e3326" }}>
+            style={{ color: "#b98a2e" }}>
             <Plus size={13} /> Add course
           </button>
         </div>
@@ -206,8 +206,8 @@ function CourseSection({ course, grades, onAdd, onEdit, onDelete }: {
         onClick={() => setOpen(o => !o)}>
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0"
-            style={{ background: "rgba(14,51,38,0.08)" }}>
-            <BookOpen size={14} style={{ color: "#0e3326" }} />
+            style={{ background: "rgba(201,168,76,0.12)" }}>
+            <BookOpen size={14} style={{ color: "#b98a2e" }} />
           </div>
           <div>
             <p className="text-[13px] font-semibold text-slate-800">{course.name}</p>
@@ -226,7 +226,7 @@ function CourseSection({ course, grades, onAdd, onEdit, onDelete }: {
           )}
           <button onClick={e => { e.stopPropagation(); onAdd(course.id); }}
             className="flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg transition-all active:scale-[0.97]"
-            style={{ background: "rgba(14,51,38,0.08)", color: "#0e3326" }}>
+            style={{ background: "rgba(201,168,76,0.12)", color: "#b98a2e" }}>
             <Plus size={11} /> Add
           </button>
           {open
@@ -252,7 +252,7 @@ function CourseSection({ course, grades, onAdd, onEdit, onDelete }: {
             <p className="text-[13px] text-slate-400">
               No grades yet —{" "}
               <button onClick={() => onAdd(course.id)}
-                className="font-semibold hover:underline" style={{ color: "#0e3326" }}>
+                className="font-semibold hover:underline" style={{ color: "#b98a2e" }}>
                 add one
               </button>
             </p>
@@ -443,7 +443,7 @@ function GradeModal({ courses, initial, onClose, onSave, saving }: {
             </button>
             <button type="submit" disabled={saving}
               className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97] disabled:opacity-60"
-              style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+              style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
               {saving
                 ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 : isEdit ? "Save Changes" : "Add Grade"}
@@ -568,7 +568,7 @@ export default function GradesPage() {
           )}
           <button onClick={() => openAdd()}
             className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97]"
-            style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+            style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
             <Plus size={15} /> Add Grade
           </button>
         </div>
@@ -672,8 +672,8 @@ export default function GradesPage() {
         <div className="bg-white rounded-2xl border border-[#e8e4da] p-5 mb-5 card-lift">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ background: "rgba(14,51,38,0.08)" }}>
-              <Award size={13} style={{ color: "#0e3326" }} />
+              style={{ background: "rgba(201,168,76,0.12)" }}>
+              <Award size={13} style={{ color: "#b98a2e" }} />
             </div>
             <h3 className="text-[13px] font-semibold text-slate-800">Average by Assessment Type</h3>
           </div>
@@ -718,7 +718,7 @@ export default function GradesPage() {
       ) : courses.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
-            style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+            style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
             <GraduationCap size={28} className="text-white/70" />
           </div>
           <p className="font-semibold text-slate-600">No courses yet</p>

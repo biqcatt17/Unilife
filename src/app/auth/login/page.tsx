@@ -152,8 +152,8 @@ export default function LoginPage() {
 
       {/* ── Left panel ──────────────────────────────────────── */}
       <div
-        className="hidden lg:flex lg:w-[48%] flex-col justify-between p-14 relative overflow-hidden"
-        style={{ background: "linear-gradient(160deg, #0a1f15 0%, #0e3326 50%, #0f4535 100%)" }}
+        className="hidden lg:flex lg:w-[48%] flex-col justify-between p-14 relative overflow-hidden paper-login-hero"
+        style={{ background: "linear-gradient(160deg, rgba(249,242,228,1) 0%, rgba(242,232,214,1) 50%, rgba(238,227,207,1) 100%)" }}
       >
         <GeoBg />
 
@@ -166,13 +166,13 @@ export default function LoginPage() {
 
         {/* Logo */}
         <div className="relative z-10 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl flex items-center justify-center border border-[rgba(201,168,76,0.3)]"
-            style={{ background: "rgba(201,168,76,0.15)" }}>
-            <GraduationCap className="w-5 h-5" style={{ color: "#c9a84c" }} />
+          <div className="w-10 h-10 rounded-2xl flex items-center justify-center border border-[rgba(156,131,91,0.25)]"
+            style={{ background: "rgba(201,168,76,0.16)" }}>
+            <GraduationCap className="w-5 h-5" style={{ color: "#8b5e1b" }} />
           </div>
           <div>
-            <p className="text-white font-bold text-[17px] leading-none tracking-tight">UniLife</p>
-            <p className="text-[11px] mt-0.5" style={{ color: "rgba(201,168,76,0.6)" }}>Student Portal</p>
+            <p className="text-[#30343b] font-bold text-[17px] leading-none tracking-tight">UniLife</p>
+            <p className="text-[11px] mt-0.5" style={{ color: "rgba(48,52,59,0.68)" }}>Student Portal</p>
           </div>
         </div>
 
@@ -180,8 +180,8 @@ export default function LoginPage() {
         <div className="relative z-10">
           {/* Decorative line */}
           <div className="flex items-center gap-3 mb-8">
-            <div className="h-px w-8" style={{ background: "#c9a84c" }} />
-            <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#c9a84c" }} />
+            <div className="h-px w-8" style={{ background: "#b98a2e" }} />
+            <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#b98a2e" }} />
           </div>
 
           <div
@@ -190,11 +190,11 @@ export default function LoginPage() {
           >
             <blockquote
               className="text-[28px] font-bold leading-[1.25] mb-4 tracking-tight"
-              style={{ color: "#f5f0e8" }}
+              style={{ color: "#30343b" }}
             >
               "{q.text}"
             </blockquote>
-            <p className="text-[14px]" style={{ color: "rgba(245,240,232,0.45)" }}>
+            <p className="text-[14px]" style={{ color: "rgba(48,52,59,0.64)" }}>
               {q.sub}
             </p>
           </div>
@@ -209,39 +209,39 @@ export default function LoginPage() {
                 style={{
                   width:  i === qIdx ? 20 : 6,
                   height: 6,
-                  background: i === qIdx ? "#c9a84c" : "rgba(201,168,76,0.25)",
+                  background: i === qIdx ? "#b98a2e" : "rgba(201,168,76,0.25)",
                 }}
               />
             ))}
           </div>
         </div>
 
-        <p className="relative z-10 text-[11px]" style={{ color: "rgba(201,168,76,0.3)" }}>
+        <p className="relative z-10 text-[11px]" style={{ color: "rgba(48,52,59,0.42)" }}>
           Built for students, by students.
         </p>
       </div>
 
       {/* ── Right panel ─────────────────────────────────────── */}
-      <div className="flex-1 flex items-center justify-center p-6 sm:p-12" style={{ background: "#faf8f3" }}>
+      <div className="flex-1 flex items-center justify-center p-6 sm:p-12" style={{ background: "rgba(250,248,241,0.9)" }}>
         <div className="w-full max-w-[380px]">
 
           {/* Mobile logo */}
           <div className="flex items-center gap-2.5 mb-10 lg:hidden">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, #0e3326, #0f4535)" }}>
-              <GraduationCap className="w-5 h-5 text-white" />
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center border"
+              style={{ background: "linear-gradient(135deg, #d7b462, #c18d2a)", borderColor: "rgba(156,131,91,0.25)" }}>
+              <GraduationCap className="w-5 h-5 text-[#fffaf0]" />
             </div>
-            <span className="font-bold text-slate-900 text-lg tracking-tight">UniLife</span>
+            <span className="font-bold text-[#30343b] text-lg tracking-tight">UniLife</span>
           </div>
 
           {/* Heading */}
-          <h2 className="text-[28px] font-bold text-slate-900 mb-1 tracking-tight">Welcome back</h2>
-          <p className="text-slate-400 text-sm mb-8">Sign in to continue your journey</p>
+          <h2 className="text-[3rem] leading-none text-[#30343b] mb-1 tracking-tight handwritten">Welcome back</h2>
+          <p className="text-[#5c6470] text-sm mb-8">Sign in to continue your journey</p>
 
           {/* Google */}
           <button
             onClick={handleGoogle} disabled={gLoading}
-            className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium text-slate-700 bg-white border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all duration-200 mb-5 disabled:opacity-50"
+            className="paper-button w-full flex items-center justify-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium text-[#30343b] bg-white border border-[rgba(48,52,59,0.12)] hover:border-[rgba(48,52,59,0.18)] hover:shadow-md transition-all duration-200 mb-5 disabled:opacity-50"
           >
             {gLoading
               ? <span className="w-4 h-4 border-2 border-slate-300 border-t-slate-600 rounded-full animate-spin" />
@@ -251,9 +251,9 @@ export default function LoginPage() {
 
           {/* Divider */}
           <div className="flex items-center gap-3 mb-6">
-            <div className="flex-1 h-px bg-slate-200" />
-            <span className="text-[11px] text-slate-400 font-medium tracking-wide">OR</span>
-            <div className="flex-1 h-px bg-slate-200" />
+            <div className="flex-1 h-px bg-[rgba(48,52,59,0.12)]" />
+            <span className="text-[11px] text-[#5c6470] font-medium tracking-wide">OR</span>
+            <div className="flex-1 h-px bg-[rgba(48,52,59,0.12)]" />
           </div>
 
           {/* Form */}
@@ -264,7 +264,7 @@ export default function LoginPage() {
               <input
                 type="email" placeholder="you@university.edu"
                 value={email} onChange={e => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-white text-sm text-slate-800 outline-none transition-all placeholder:text-slate-300 focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.08)]"
+                className="paper-input w-full px-4 py-3 text-sm text-slate-800 placeholder:text-slate-300"
               />
             </div>
 
@@ -275,7 +275,7 @@ export default function LoginPage() {
                 <input
                   type={showPw ? "text" : "password"} placeholder="••••••••"
                   value={password} onChange={e => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pr-11 rounded-2xl border border-slate-200 bg-white text-sm text-slate-800 outline-none transition-all placeholder:text-slate-300 focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.08)]"
+                  className="paper-input w-full px-4 py-3 pr-11 text-sm text-slate-800 placeholder:text-slate-300"
                 />
                 <button type="button" onClick={() => setShowPw(v => !v)}
                   className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-500 transition-colors">
@@ -291,7 +291,7 @@ export default function LoginPage() {
               ) : (
                 <button type="button" onClick={handleForgotPassword}
                   className="text-[12px] font-medium transition-colors hover:underline"
-                  style={{ color: "#0e3326" }}>
+                  style={{ color: "#b98a2e" }}>
                   Forgot password?
                 </button>
               )}
@@ -300,8 +300,8 @@ export default function LoginPage() {
             {/* Submit */}
             <button
               type="submit" disabled={loading}
-              className="mt-1 w-full py-3 rounded-2xl text-sm font-semibold text-white transition-all duration-200 disabled:opacity-60 hover:brightness-110 active:scale-[0.98]"
-              style={{ background: "linear-gradient(135deg, #0e3326, #0f4535)" }}
+              className="paper-button mt-1 w-full py-3 rounded-2xl text-sm font-semibold text-white transition-all duration-200 disabled:opacity-60 hover:brightness-110 active:scale-[0.98]"
+              style={{ background: "linear-gradient(135deg, #b98a2e, #8b5e1b)" }}
             >
               {loading
                 ? <span className="flex items-center justify-center gap-2">
@@ -314,7 +314,7 @@ export default function LoginPage() {
 
           <p className="text-center text-[13px] text-slate-400 mt-8">
             Don&apos;t have an account?{" "}
-            <Link href="/auth/register" className="font-semibold hover:underline" style={{ color: "#0e3326" }}>
+            <Link href="/auth/register" className="font-semibold hover:underline" style={{ color: "#b98a2e" }}>
               Create one free
             </Link>
           </p>

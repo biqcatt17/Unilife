@@ -43,7 +43,7 @@ export default function NotificationBanner() {
   };
 
   return (
-    <div className="flex items-center gap-3 bg-blue-50 border border-blue-100 rounded-2xl px-4 py-3 mb-5">
+    <div className="paper-card flex items-center gap-3 bg-[#edf5ff] border border-blue-100 rounded-2xl px-4 py-3 mb-5">
       <div className="w-8 h-8 bg-blue-100 rounded-xl flex items-center justify-center shrink-0">
         <Bell size={15} className="text-blue-600" />
       </div>
@@ -55,7 +55,7 @@ export default function NotificationBanner() {
         <button
           onClick={handleEnable}
           disabled={loading}
-          className="px-3 py-1.5 rounded-xl bg-blue-600 text-white text-[12px] font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60">
+          className="paper-button px-3 py-1.5 rounded-xl bg-blue-600 text-white text-[12px] font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60">
           {loading ? "Enabling…" : "Enable"}
         </button>
         <button onClick={handleDismiss}

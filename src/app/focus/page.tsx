@@ -22,31 +22,31 @@ import toast from "react-hot-toast";
 
 // ─── Themes ───────────────────────────────────────────────────
 const THEMES = [
-  { key: "space",   label: "Space",   dot: "#6366f1",
-    bg: "linear-gradient(135deg,#060d1f 0%,#0d1a3a 55%,#060d1f 100%)",
-    card: "rgba(255,255,255,0.07)", border: "rgba(255,255,255,0.1)",
-    text: "#e2e8f0", muted: "#94a3b8", accent: "#6366f1",
-    timerColor: "#818cf8", trackColor: "rgba(255,255,255,0.08)" },
-  { key: "forest",  label: "Forest",  dot: "#22c55e",
-    bg: "linear-gradient(135deg,#071410 0%,#0d2b1e 55%,#071410 100%)",
-    card: "rgba(255,255,255,0.07)", border: "rgba(255,255,255,0.1)",
-    text: "#e2e8f0", muted: "#86efac", accent: "#22c55e",
-    timerColor: "#4ade80", trackColor: "rgba(255,255,255,0.08)" },
-  { key: "ocean",   label: "Ocean",   dot: "#0ea5e9",
-    bg: "linear-gradient(135deg,#020e1f 0%,#05213d 55%,#020e1f 100%)",
-    card: "rgba(255,255,255,0.07)", border: "rgba(255,255,255,0.1)",
-    text: "#e2e8f0", muted: "#7dd3fc", accent: "#0ea5e9",
-    timerColor: "#38bdf8", trackColor: "rgba(255,255,255,0.08)" },
-  { key: "sunset",  label: "Sunset",  dot: "#f97316",
-    bg: "linear-gradient(135deg,#130510 0%,#2d0f22 50%,#1a0d03 100%)",
-    card: "rgba(255,255,255,0.07)", border: "rgba(255,255,255,0.1)",
-    text: "#e2e8f0", muted: "#fca5a5", accent: "#f97316",
-    timerColor: "#fb923c", trackColor: "rgba(255,255,255,0.08)" },
-  { key: "minimal", label: "Light",   dot: "#3b82f6",
-    bg: "#f1f5f9",
-    card: "#ffffff", border: "#e2e8f0",
-    text: "#0f172a", muted: "#64748b", accent: "#3b82f6",
-    timerColor: "#3b82f6", trackColor: "#e2e8f0" },
+  { key: "paper",   label: "Paper",   dot: "#c9a84c",
+    bg: "linear-gradient(135deg,#f8f1e7 0%,#f4e5c8 48%,#f8f3eb 100%)",
+    card: "rgba(255,255,255,0.76)", border: "rgba(48,52,59,0.12)",
+    text: "#30343b", muted: "#5d6773", accent: "#b98a2e",
+    timerColor: "#c9a84c", trackColor: "rgba(48,52,59,0.08)" },
+  { key: "sage",    label: "Sage",    dot: "#6a7d5f",
+    bg: "linear-gradient(135deg,#eef3ea 0%,#ddeadc 48%,#f3f0e8 100%)",
+    card: "rgba(255,255,255,0.74)", border: "rgba(48,52,59,0.12)",
+    text: "#30343b", muted: "#586b5a", accent: "#44614b",
+    timerColor: "#6a7d5f", trackColor: "rgba(48,52,59,0.08)" },
+  { key: "clay",    label: "Clay",    dot: "#b66b4d",
+    bg: "linear-gradient(135deg,#f9efe9 0%,#eed7c5 48%,#f8f2eb 100%)",
+    card: "rgba(255,255,255,0.74)", border: "rgba(48,52,59,0.12)",
+    text: "#30343b", muted: "#74615b", accent: "#8d5b4d",
+    timerColor: "#b66b4d", trackColor: "rgba(48,52,59,0.08)" },
+  { key: "mist",    label: "Mist",    dot: "#7ea3b4",
+    bg: "linear-gradient(135deg,#eef4f6 0%,#dfe9ee 48%,#f7f2eb 100%)",
+    card: "rgba(255,255,255,0.76)", border: "rgba(48,52,59,0.12)",
+    text: "#30343b", muted: "#5d7380", accent: "#527083",
+    timerColor: "#7ea3b4", trackColor: "rgba(48,52,59,0.08)" },
+  { key: "minimal", label: "Canvas", dot: "#b98a2e",
+    bg: "#f7f2ea",
+    card: "#ffffff", border: "rgba(48,52,59,0.12)",
+    text: "#30343b", muted: "#667085", accent: "#b98a2e",
+    timerColor: "#b98a2e", trackColor: "rgba(48,52,59,0.08)" },
 ] as const;
 type ThemeKey = typeof THEMES[number]["key"];
 
@@ -184,6 +184,7 @@ function useSoundEngine() {
 const fmt = (s: number) =>
   `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
+
 // ─── Timer ring ───────────────────────────────────────────────
 function Ring({ pct, color, track, size = 240, running = false }: {
   pct: number; color: string; track: string; size?: number; running?: boolean;
@@ -246,7 +247,7 @@ function SessionStrip({ records, goal, accent, track, muted }:
 export default function FocusPage() {
   const { user } = useAuth();
 
-  const [themeKey,    setThemeKey]    = useState<ThemeKey>("space");
+  const [themeKey,    setThemeKey]    = useState<ThemeKey>("paper");
   const theme = THEMES.find(t => t.key === themeKey)!;
 
   const [modeKey,     setModeKey]     = useState<ModeKey>("focus");
@@ -290,6 +291,21 @@ export default function FocusPage() {
   const [panel,       setPanel]       = useState<"notes" | "tasks" | "stats">("notes");
   const [drawerOpen,  setDrawerOpen]  = useState(false);
   const [isImmersive, setIsImmersive] = useState(false);
+
+  // ── Music player ──────────────────────────────────────────
+  interface Track { src: string; name: string; }
+  const [playlist,     setPlaylist]     = useState<Track[]>([]);
+  const [trackIdx,     setTrackIdx]     = useState(0);
+  const [mp3Playing,   setMp3Playing]   = useState(false);
+  const [showMusic,    setShowMusic]    = useState(false);
+  const [pasteMode,    setPasteMode]    = useState(false);
+  const [pasteText,    setPasteText]    = useState("");
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // ── YouTube player ────────────────────────────────────────
+  const [ytInput,      setYtInput]      = useState("");
+  const [ytEmbedSrc,   setYtEmbedSrc]   = useState("");
+  const [showYt,       setShowYt]       = useState(false);
 
   // ── Idle dim state ────────────────────────────────────────
   const [idle, setIdle]   = useState(false);
@@ -702,6 +718,258 @@ export default function FocusPage() {
             className="flex-1" style={{ accentColor: theme.accent }} />
         </div>
       </div>
+
+      {/* MP3 player */}
+      {(() => {
+        const current = playlist[trackIdx] ?? null;
+        const goTo = (idx: number) => {
+          const audio = audioRef.current;
+          const next = (idx + playlist.length) % playlist.length;
+          setTrackIdx(next);
+          if (audio) { audio.src = playlist[next]?.src ?? ""; audio.play().catch(() => {}); setMp3Playing(true); }
+        };
+        const commitPaste = () => {
+          const lines = pasteText.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+          const tracks: Track[] = lines.map(url => ({
+            src: url,
+            name: decodeURIComponent(url.split("/").pop()?.split("?")[0] ?? url).replace(/\.[^.]+$/, ""),
+          }));
+          if (tracks.length === 0) return;
+          setPlaylist(prev => [...prev, ...tracks]);
+          setPasteText(""); setPasteMode(false);
+        };
+        return (
+          <div className="shrink-0 rounded-2xl p-3 flex flex-col gap-2"
+            style={{ background: "rgba(0,0,0,0.2)", border: `1px solid ${theme.border}` }}>
+
+            {/* Header row */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <Music size={12} style={{ color: current ? theme.accent : theme.muted }} />
+                <span className="text-[12px] font-semibold truncate max-w-[130px]"
+                  style={{ color: current ? theme.accent : theme.muted }}>
+                  {current ? current.name : "Music"}
+                </span>
+                {mp3Playing && (
+                  <span className="text-[10px] px-1.5 py-0.5 rounded-full animate-pulse shrink-0"
+                    style={{ background: `${theme.accent}22`, color: theme.accent }}>♪</span>
+                )}
+              </div>
+              <button onClick={() => setShowMusic(m => !m)}
+                className="text-[11px] px-2 py-1 rounded-lg transition-all shrink-0"
+                style={{ background: "rgba(255,255,255,0.05)", color: theme.muted }}>
+                {showMusic ? "Hide" : "Show"}
+              </button>
+            </div>
+
+            {showMusic && (
+              <div className="flex flex-col gap-2">
+
+                {/* Controls */}
+                {current && (
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => goTo(trackIdx - 1)}
+                      className="w-7 h-7 rounded-full flex items-center justify-center transition-all hover:opacity-70"
+                      style={{ background: "rgba(255,255,255,0.07)" }}>
+                      <ChevronLeft size={13} style={{ color: theme.muted }} />
+                    </button>
+                    <button
+                      onClick={() => {
+                        const audio = audioRef.current;
+                        if (!audio) return;
+                        if (mp3Playing) { audio.pause(); setMp3Playing(false); }
+                        else { audio.play().catch(() => {}); setMp3Playing(true); }
+                      }}
+                      className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all hover:scale-110"
+                      style={{ background: `linear-gradient(135deg,${theme.accent},${theme.timerColor})` }}>
+                      {mp3Playing
+                        ? <Pause size={14} fill="white" color="white" />
+                        : <Play  size={14} fill="white" color="white" className="ml-0.5" />}
+                    </button>
+                    <button onClick={() => goTo(trackIdx + 1)}
+                      className="w-7 h-7 rounded-full flex items-center justify-center transition-all hover:opacity-70"
+                      style={{ background: "rgba(255,255,255,0.07)", transform: "scaleX(-1)" }}>
+                      <ChevronLeft size={13} style={{ color: theme.muted }} />
+                    </button>
+                    <span className="text-[11px] truncate flex-1" style={{ color: theme.muted }}>
+                      {current.name}
+                    </span>
+                    <span className="text-[10px] shrink-0" style={{ color: theme.muted }}>
+                      {trackIdx + 1}/{playlist.length}
+                    </span>
+                  </div>
+                )}
+
+                <audio
+                  ref={audioRef}
+                  src={current?.src ?? ""}
+                  onPlay={() => setMp3Playing(true)}
+                  onPause={() => setMp3Playing(false)}
+                  onEnded={() => goTo(trackIdx + 1)}
+                />
+
+                {/* Playlist */}
+                {playlist.length > 0 && (
+                  <ul className="flex flex-col gap-1 max-h-[110px] overflow-y-auto">
+                    {playlist.map((t, i) => (
+                      <li key={i}
+                        onClick={() => goTo(i)}
+                        className="flex items-center gap-2 px-2 py-1 rounded-lg cursor-pointer transition-all text-[11px]"
+                        style={{
+                          background: i === trackIdx ? `${theme.accent}18` : "transparent",
+                          color: i === trackIdx ? theme.accent : theme.muted,
+                        }}>
+                        <span className="w-3 shrink-0 text-center">
+                          {i === trackIdx && mp3Playing ? "♪" : i + 1}
+                        </span>
+                        <span className="truncate flex-1">{t.name}</span>
+                        <button onClick={e => {
+                          e.stopPropagation();
+                          const next = playlist.filter((_, j) => j !== i);
+                          setPlaylist(next);
+                          if (i === trackIdx && next.length > 0) goTo(Math.min(i, next.length - 1));
+                          if (next.length === 0) { setMp3Playing(false); setTrackIdx(0); }
+                        }}
+                          className="opacity-0 hover:opacity-100 transition-opacity"
+                          style={{ color: "#f87171" }}>
+                          <X size={10} />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {/* Add tracks row */}
+                {!pasteMode ? (
+                  <button onClick={() => setPasteMode(true)}
+                    className="w-full py-1.5 rounded-lg text-[11px] transition-all hover:opacity-80"
+                    style={{ border: `1px dashed ${theme.border}`, color: theme.muted }}>
+                    + Paste MP3 URLs
+                  </button>
+                ) : (
+                  <div className="flex flex-col gap-1.5">
+                    <textarea
+                      autoFocus
+                      value={pasteText}
+                      onChange={e => setPasteText(e.target.value)}
+                      placeholder={"Paste MP3 URLs, one per line…"}
+                      rows={3}
+                      className="w-full bg-transparent text-[11px] px-2.5 py-2 rounded-lg resize-none outline-none placeholder:opacity-30"
+                      style={{ color: theme.text, border: `1px solid ${theme.border}` }}
+                    />
+                    <div className="flex gap-1.5">
+                      <button onClick={commitPaste}
+                        className="flex-1 py-1.5 rounded-lg text-[11px] font-semibold transition-all"
+                        style={{ background: `${theme.accent}30`, color: theme.accent }}>
+                        Add to playlist
+                      </button>
+                      <button onClick={() => { setPasteMode(false); setPasteText(""); }}
+                        className="px-3 py-1.5 rounded-lg text-[11px] transition-all"
+                        style={{ background: "rgba(255,255,255,0.05)", color: theme.muted }}>
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      })()}
+
+      {/* YouTube player */}
+      {(() => {
+        const toYtEmbed = (raw: string): string | null => {
+          try {
+            const url = new URL(raw.trim());
+            if (!url.hostname.includes("youtube.com") && !url.hostname.includes("youtu.be")) return null;
+            const vid  = url.hostname === "youtu.be" ? url.pathname.slice(1) : url.searchParams.get("v") ?? "";
+            const list = url.searchParams.get("list");
+            if (!vid && !list) return null;
+            const p = new URLSearchParams({ autoplay: "1", rel: "0" });
+            if (list) p.set("list", list);
+            return vid
+              ? `https://www.youtube.com/embed/${vid}?${p}`
+              : `https://www.youtube.com/embed/videoseries?${p}`;
+          } catch { return null; }
+        };
+        return (
+          <div className="shrink-0 rounded-2xl p-3 flex flex-col gap-2"
+            style={{ background: "rgba(0,0,0,0.2)", border: `1px solid ${theme.border}` }}>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <Music2 size={12} style={{ color: ytEmbedSrc ? theme.accent : theme.muted }} />
+                <span className="text-[12px] font-semibold" style={{ color: ytEmbedSrc ? theme.accent : theme.muted }}>
+                  YouTube
+                </span>
+              </div>
+              <button onClick={() => setShowYt(v => !v)}
+                className="text-[11px] px-2 py-1 rounded-lg transition-all"
+                style={{ background: "rgba(255,255,255,0.05)", color: theme.muted }}>
+                {showYt ? "Hide" : "Show"}
+              </button>
+            </div>
+
+            {/* Always in DOM so audio keeps playing when hidden */}
+            <div className={showYt ? "flex flex-col gap-2" : "hidden"}>
+              <div className="flex gap-1.5">
+                <input
+                  value={ytInput}
+                  onChange={e => setYtInput(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key !== "Enter") return;
+                    const src = toYtEmbed(ytInput);
+                    if (src) setYtEmbedSrc(src);
+                    else toast.error("Paste a valid YouTube URL");
+                  }}
+                  placeholder="Paste YouTube video or playlist URL…"
+                  className="flex-1 bg-transparent text-[12px] px-2.5 py-1.5 rounded-lg outline-none placeholder:opacity-30"
+                  style={{ color: theme.text, border: `1px solid ${theme.border}` }}
+                />
+                <button
+                  onClick={() => {
+                    const src = toYtEmbed(ytInput);
+                    if (src) setYtEmbedSrc(src);
+                    else toast.error("Paste a valid YouTube URL");
+                  }}
+                  className="px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all"
+                  style={{ background: `${theme.accent}30`, color: theme.accent }}>
+                  Load
+                </button>
+                {ytEmbedSrc && (
+                  <button onClick={() => { setYtEmbedSrc(""); setYtInput(""); }}
+                    className="px-2 py-1.5 rounded-lg transition-all"
+                    style={{ background: "rgba(248,113,113,0.12)", color: "#f87171" }}>
+                    <X size={12} />
+                  </button>
+                )}
+              </div>
+              {ytEmbedSrc && (
+                <iframe
+                  key={ytEmbedSrc}
+                  src={ytEmbedSrc}
+                  width="100%"
+                  height={180}
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  allowFullScreen
+                  style={{ borderRadius: 10, border: "none", display: "block" }}
+                />
+              )}
+            </div>
+
+            {/* Keep iframe alive when player is hidden */}
+            {!showYt && ytEmbedSrc && (
+              <iframe
+                key={"bg-" + ytEmbedSrc}
+                src={ytEmbedSrc}
+                width="1" height="1"
+                allow="autoplay; encrypted-media"
+                style={{ position: "absolute", opacity: 0, pointerEvents: "none" }}
+              />
+            )}
+          </div>
+        );
+      })()}
     </div>
   );
 

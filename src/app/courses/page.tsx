@@ -82,52 +82,44 @@ function WeeklyTimetable({
   }, []);
 
   return (
-    <div className="bg-white rounded-2xl border border-[#e4e4dc] overflow-hidden">
-      {/* Day header row */}
-      <div className="flex border-b border-[#e4e4dc]" style={{ paddingLeft: GUTTER_W }}>
+    <div className="rounded-2xl border border-[#e8e3d9] bg-[#fffdf9] overflow-hidden shadow-sm">
+      <div className="flex border-b border-[#e8e3d9]" style={{ paddingLeft: GUTTER_W }}>
         {visibleDays.map(d => (
-          <div key={d} className="flex-1 py-2.5 text-center border-l border-[#e4e4dc] first:border-l-0">
-            <span className="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg"
+          <div key={d} className="flex-1 py-2.5 text-center border-l border-[#e8e3d9] first:border-l-0">
+            <span className="inline-flex items-center justify-center min-w-[52px] text-[10px] font-bold uppercase tracking-[0.16em] px-2.5 py-1.5 rounded-full"
               style={d === todayShort
-                ? { background: "linear-gradient(135deg, #0e3326, #0f4535)", color: "#fff" }
-                : { color: "#94a3b8" }}>{d}</span>
+                ? { background: "linear-gradient(135deg, #b98a2e, #8d6619)", color: "#fff" }
+                : { background: "#f5f0e6", color: "#667085" }}>{d}</span>
           </div>
         ))}
       </div>
 
-      {/* Grid body */}
       <div className="overflow-y-auto" style={{ maxHeight: "calc(100vh - 260px)", minHeight: 320 }}>
         <div className="relative" style={{ height: gridH }}>
-          {/* Hour lines + labels */}
           {hourLabels.map((h, i) => (
             <div key={h} className="absolute left-0 right-0 flex items-start pointer-events-none"
               style={{ top: i * HOUR_H }}>
               <div className="flex items-center justify-end shrink-0 pr-3 pt-0" style={{ width: GUTTER_W }}>
-                <span className="text-[10px] text-slate-300 font-medium leading-none -translate-y-[6px]">
+                <span className="text-[10px] text-slate-400 font-semibold leading-none -translate-y-[6px]">
                   {h === 12 ? "12 PM" : h > 12 ? `${h-12} PM` : `${h} AM`}
                 </span>
               </div>
-              <div className="flex-1 border-t border-[#f0f0eb]" />
+              <div className="flex-1 border-t border-[#f0efe9]" />
             </div>
           ))}
 
-          {/* Half-hour faint lines */}
           {Array.from({ length: totalHours }, (_, i) => (
             <div key={i} className="absolute left-0 right-0 pointer-events-none" style={{ top: i * HOUR_H + HOUR_H / 2 }}>
-              <div style={{ marginLeft: GUTTER_W, borderTop: "1px dashed #f5f5f0" }} />
+              <div style={{ marginLeft: GUTTER_W, borderTop: "1px dashed #f1efe8" }} />
             </div>
           ))}
 
-          {/* Day column backgrounds */}
           <div className="absolute inset-0 flex" style={{ left: GUTTER_W }}>
             {visibleDays.map(d => (
-              <div key={d} className={`flex-1 border-l border-[#f0f0eb] first:border-l-0 ${
-                d === todayShort ? "bg-blue-50/30" : ""
-              }`} />
+              <div key={d} className={`flex-1 border-l border-[#f4f1eb] first:border-l-0 ${d === todayShort ? "bg-amber-50/35" : "bg-[#fffdfa]"}`} />
             ))}
           </div>
 
-          {/* Now line */}
           {showNowLine && (
             <div className="absolute left-0 right-0 z-20 pointer-events-none flex items-center"
               style={{ top: nowLineTop }}>
@@ -138,7 +130,6 @@ function WeeklyTimetable({
             </div>
           )}
 
-          {/* Course blocks */}
           {courses.map(course => {
             const col      = getColor(course.color);
             const startMin = timeToMin(course.startTime);
@@ -156,22 +147,22 @@ function WeeklyTimetable({
               return (
                 <button key={`${course.id}-${day}`}
                   onClick={() => setPopup(p => p?.course.id === course.id && p.day === day ? null : { course, day })}
-                  className={`absolute rounded-xl overflow-hidden text-left transition-all hover:brightness-95 z-10 ${col.light} border-l-[3px] ${col.border}`}
+                  className={`absolute rounded-xl overflow-hidden text-left transition-all hover:brightness-95 z-10 border border-white/60 ${col.light}`}
                   style={{
-                    top: topPx + 2, height: Math.max(heightPx - 4, 20),
+                    top: topPx + 3, height: Math.max(heightPx - 6, 22),
                     left: leftPx, width: colW,
-                    paddingLeft: 6, paddingRight: 4, paddingTop: 4,
-                    boxShadow: isNow ? `0 0 0 2px ${col.solid}40` : undefined,
+                    padding: "6px 7px 5px",
+                    boxShadow: isNow ? `0 0 0 2px ${col.solid}50` : "0 6px 12px rgba(15, 23, 42, 0.06)",
                   }}>
                   {isNow && (
                     <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                   )}
                   <p className={`text-[11px] font-bold leading-tight truncate ${col.text}`}>{course.code}</p>
-                  {heightPx > 36 && (
-                    <p className="text-[10px] text-slate-500 truncate leading-tight mt-0.5">{course.name}</p>
+                  {heightPx > 38 && (
+                    <p className="text-[10px] text-slate-600 truncate leading-tight mt-0.5">{course.name}</p>
                   )}
-                  {heightPx > 60 && course.room && (
-                    <p className="text-[10px] text-slate-400 truncate mt-0.5">{course.room}</p>
+                  {heightPx > 62 && course.room && (
+                    <p className="text-[10px] text-slate-500 truncate mt-0.5">{course.room}</p>
                   )}
                 </button>
               );
@@ -236,6 +227,82 @@ function WeeklyTimetable({
 }
 
 // ─── Today Strip ─────────────────────────────────────────────
+function getDayOrderIndex(day: string) {
+  return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(day);
+}
+
+function getNextClass(courses: Course[], now: Date) {
+  const todayShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][now.getDay()];
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+  const upcoming = courses
+    .filter(course => course.days && course.days.length > 0)
+    .map(course => {
+      const dayIndex = getDayOrderIndex(todayShort);
+      const courseMatchesToday = course.days!.includes(todayShort);
+      const time = timeToMin(course.startTime);
+      const isAfterNow = courseMatchesToday ? time >= currentMinutes : true;
+      const daysUntil = course.days!.reduce((closest, day) => {
+        const diff = (getDayOrderIndex(day) - dayIndex + 7) % 7;
+        return Math.min(closest, diff === 0 ? (courseMatchesToday ? 0 : 7) : diff);
+      }, 7);
+
+      return {
+        course,
+        sortKey: (daysUntil * 24 * 60) + time,
+        isAfterNow,
+      };
+    })
+    .filter(item => item.isAfterNow)
+    .sort((a, b) => a.sortKey - b.sortKey)[0];
+
+  return upcoming?.course ?? null;
+}
+
+function ScheduleOverview({ courses, now }: { courses: Course[]; now: Date }) {
+  const todayShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][now.getDay()];
+  const todayCourses = courses.filter(c => c.days?.includes(todayShort));
+  const nextClass = getNextClass(courses, now);
+  const totalMinutes = courses.reduce((sum, c) => sum + Math.max(0, timeToMin(c.endTime) - timeToMin(c.startTime)), 0);
+  const totalHours = Math.round((totalMinutes / 60) * 10) / 10;
+
+  const cards = [
+    {
+      label: "Today",
+      value: `${todayCourses.length} class${todayCourses.length === 1 ? "" : "es"}`,
+      detail: todayCourses.length ? `${fmt12(todayCourses[0].startTime)} • ${todayCourses[0].code}` : "No classes",
+      accent: "amber",
+    },
+    {
+      label: "Next class",
+      value: nextClass ? nextClass.code : "No upcoming",
+      detail: nextClass ? `${nextClass.name} • ${fmt12(nextClass.startTime)}` : "Add a class to your timetable",
+      accent: "blue",
+    },
+    {
+      label: "Study load",
+      value: `${totalHours}h/week`,
+      detail: `${courses.length} course${courses.length === 1 ? "" : "s"} scheduled`,
+      accent: "green",
+    },
+  ];
+
+  return (
+    <div className="grid gap-3 md:grid-cols-3 mb-4">
+      {cards.map(card => (
+        <div key={card.label} className="rounded-2xl border border-[#e8e2d6] bg-gradient-to-br from-white to-[#faf7f1] p-3.5 shadow-sm">
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{card.label}</span>
+            <span className={`h-2.5 w-2.5 rounded-full ${card.accent === "amber" ? "bg-amber-400" : card.accent === "blue" ? "bg-blue-400" : "bg-emerald-400"}`} />
+          </div>
+          <div className="text-lg font-bold text-slate-800 leading-tight">{card.value}</div>
+          <div className="mt-1 text-xs text-slate-500 line-clamp-2">{card.detail}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function TodayStrip({ courses, now }: { courses: Course[]; now: Date }) {
   const todayShort   = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][now.getDay()];
   const nowMin       = now.getHours() * 60 + now.getMinutes();
@@ -244,24 +311,28 @@ function TodayStrip({ courses, now }: { courses: Course[]; now: Date }) {
     .sort((a, b) => timeToMin(a.startTime) - timeToMin(b.startTime));
 
   if (todayCourses.length === 0) return (
-    <p className="text-sm text-slate-400 mb-4">No classes today.</p>
+    <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-400 mb-4">No classes today.</div>
   );
 
   return (
-    <div className="flex items-center gap-2 mb-4 flex-wrap">
-      <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider shrink-0">Today</span>
-      {todayCourses.map(c => {
-        const col   = getColor(c.color);
-        const isNow = nowMin >= timeToMin(c.startTime) && nowMin < timeToMin(c.endTime);
-        return (
-          <div key={c.id}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-medium ${col.light} ${col.text} ${col.border} ${isNow ? "ring-1 ring-offset-1 ring-current" : ""}`}>
-            {isNow && <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shrink-0" />}
-            <span>{c.code}</span>
-            <span className="text-slate-400 font-normal">{fmt12(c.startTime)}</span>
-          </div>
-        );
-      })}
+    <div className="mb-4">
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Today</span>
+      </div>
+      <div className="flex items-center gap-2 flex-wrap">
+        {todayCourses.map(c => {
+          const col   = getColor(c.color);
+          const isNow = nowMin >= timeToMin(c.startTime) && nowMin < timeToMin(c.endTime);
+          return (
+            <div key={c.id}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl border text-xs font-medium ${col.light} ${col.text} ${col.border} ${isNow ? "ring-1 ring-offset-1 ring-current" : ""}`}>
+              {isNow && <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shrink-0" />}
+              <span>{c.code}</span>
+              <span className="text-slate-400 font-normal">{fmt12(c.startTime)}</span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -317,7 +388,7 @@ function CourseModal({ initial, onClose, onSave, saving }: {
                 <button key={d} type="button" onClick={() => toggleDay(d)}
                   className="px-3 py-1.5 rounded-lg text-sm font-medium border transition-all"
                   style={form.days.includes(d)
-                    ? { background: "linear-gradient(135deg, #0e3326, #0f4535)", color: "#fff", borderColor: "transparent" }
+                    ? { background: "linear-gradient(135deg, #b98a2e, #8b5e1b)", color: "#fff", borderColor: "transparent" }
                     : { background: "#fff", color: "#475569", borderColor: "#e8e4da" }}>{d}</button>
               ))}
             </div>
@@ -423,6 +494,7 @@ export default function SchedulePage() {
         </div>
       ) : (
         <>
+          <ScheduleOverview courses={courses} now={now} />
           <TodayStrip courses={courses} now={now} />
           <WeeklyTimetable courses={courses} now={now} onEdit={openEdit} onDelete={handleDelete} />
         </>

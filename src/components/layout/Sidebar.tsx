@@ -83,45 +83,42 @@ export default function Sidebar({
   return (
     <aside
       className={clsx(
-        "fixed left-0 top-0 h-screen w-64 flex flex-col z-40 select-none transition-transform duration-300",
+        "fixed left-0 top-0 h-screen w-64 flex flex-col z-40 select-none transition-transform duration-300 paper-sidebar",
         "lg:translate-x-0",
         open ? "translate-x-0" : "-translate-x-full",
       )}
-      style={{ background: "linear-gradient(180deg, #071710 0%, #0a1f15 40%, #0d2a1d 100%)" }}
+      style={{ position: "fixed", width: "16rem" }}
     >
       <SidebarGeo />
 
-      {/* Top glow */}
       <div className="absolute top-0 right-0 w-48 h-48 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%)" }} />
+        style={{ background: "radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)" }} />
 
-      {/* Logo */}
       <div className="relative z-10 flex items-center gap-3 px-5 pt-6 pb-5">
         <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border"
-          style={{ background: "rgba(201,168,76,0.15)", borderColor: "rgba(201,168,76,0.3)" }}>
-          <GraduationCap className="w-4 h-4" style={{ color: "#c9a84c" }} />
+          style={{ background: "rgba(201,168,76,0.16)", borderColor: "rgba(156,131,91,0.25)" }}>
+          <GraduationCap className="w-4 h-4" style={{ color: "#a6731d" }} />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-bold text-[15px] leading-none tracking-tight" style={{ color: "#f5f0e8" }}>UniLife</p>
-          <p className="text-[10px] mt-0.5" style={{ color: "rgba(201,168,76,0.5)" }}>Student Portal</p>
+          <p className="font-bold text-[15px] leading-none tracking-tight" style={{ color: "#30343b" }}>UniLife</p>
+          <p className="text-[10px] mt-0.5" style={{ color: "rgba(48,52,59,0.68)" }}>Student Portal</p>
         </div>
         <button
           onClick={onClose}
           className="lg:hidden w-7 h-7 flex items-center justify-center rounded-lg transition-colors"
-          style={{ color: "rgba(245,240,232,0.4)" }}>
+          style={{ color: "rgba(48,52,59,0.52)" }}>
           <X size={16} />
         </button>
       </div>
 
-      {/* Divider */}
-      <div className="relative z-10 mx-5 mb-4 h-px" style={{ background: "rgba(201,168,76,0.12)" }} />
+      <div className="relative z-10 mx-5 mb-4 h-px" style={{ background: "rgba(92,78,56,0.12)" }} />
 
       {/* Nav */}
       <nav className="relative z-10 flex-1 px-3 overflow-y-auto sidebar-scroll pb-2">
         {navGroups.map((group) => (
           <div key={group.label} className="mb-5">
             <p className="text-[10px] font-semibold uppercase tracking-widest px-2 mb-1.5"
-              style={{ color: "rgba(201,168,76,0.4)" }}>
+              style={{ color: "rgba(48,52,59,0.56)" }}>
               {group.label}
             </p>
             <ul className="flex flex-col gap-0.5">
@@ -132,18 +129,19 @@ export default function Sidebar({
                     <Link
                       href={href}
                       onClick={onClose}
-                      className="flex items-center gap-3 px-2.5 py-2 rounded-lg text-[13px] font-medium transition-all duration-150 hover:bg-white/5"
+                      aria-current={active ? "page" : undefined}
+                      className="paper-nav-link flex items-center gap-3 px-2.5 py-2 rounded-xl text-[13px] font-medium transition-all duration-150 hover:bg-white/5"
                       style={active ? {
-                        background: "rgba(201,168,76,0.12)",
-                        color: "#c9a84c",
+                        background: "rgba(201,168,76,0.14)",
+                        color: "#3a2d1e",
                       } : {
-                        color: "rgba(245,240,232,0.5)",
+                        color: "rgba(48,52,59,0.72)",
                       }}
                     >
                       <Icon
                         size={15}
                         className="shrink-0"
-                        style={{ color: active ? "#c9a84c" : "rgba(245,240,232,0.35)" }}
+                        style={{ color: active ? "#a6731d" : "rgba(48,52,59,0.58)" }}
                       />
                       {label}
                     </Link>
@@ -158,7 +156,7 @@ export default function Sidebar({
         {(isAdmin || isSuperAdmin) && (
           <div className="mb-5">
             <p className="text-[10px] font-semibold uppercase tracking-widest px-2 mb-1.5"
-              style={{ color: "rgba(201,168,76,0.4)" }}>
+              style={{ color: "rgba(48,52,59,0.56)" }}>
               {isSuperAdmin ? "Super Admin" : "Admin"}
             </p>
             <ul className="flex flex-col gap-0.5">
@@ -167,10 +165,11 @@ export default function Sidebar({
                 return (
                   <li>
                     <Link href="/admin" onClick={onClose}
-                      className="flex items-center gap-3 px-2.5 py-2 rounded-lg text-[13px] font-medium transition-all duration-150 hover:bg-white/5"
-                      style={active ? { background: "rgba(201,168,76,0.12)", color: "#c9a84c" } : { color: "rgba(245,240,232,0.5)" }}>
+                      aria-current={active ? "page" : undefined}
+                      className="paper-nav-link flex items-center gap-3 px-2.5 py-2 rounded-xl text-[13px] font-medium transition-all duration-150 hover:bg-white/5"
+                      style={active ? { background: "rgba(201,168,76,0.14)", color: "#3a2d1e" } : { color: "rgba(48,52,59,0.72)" }}>
                       <ShieldCheck size={15} className="shrink-0"
-                        style={{ color: active ? "#c9a84c" : "rgba(245,240,232,0.35)" }} />
+                        style={{ color: active ? "#a6731d" : "rgba(48,52,59,0.58)" }} />
                       Admin Panel
                     </Link>
                   </li>
@@ -181,10 +180,11 @@ export default function Sidebar({
                 return (
                   <li>
                     <Link href="/superadmin" onClick={onClose}
-                      className="flex items-center gap-3 px-2.5 py-2 rounded-lg text-[13px] font-medium transition-all duration-150 hover:bg-white/5"
-                      style={active ? { background: "rgba(201,168,76,0.12)", color: "#c9a84c" } : { color: "rgba(245,240,232,0.5)" }}>
+                      aria-current={active ? "page" : undefined}
+                      className="paper-nav-link flex items-center gap-3 px-2.5 py-2 rounded-xl text-[13px] font-medium transition-all duration-150 hover:bg-white/5"
+                      style={active ? { background: "rgba(201,168,76,0.14)", color: "#3a2d1e" } : { color: "rgba(48,52,59,0.72)" }}>
                       <ShieldCheck size={15} className="shrink-0"
-                        style={{ color: active ? "#c9a84c" : "rgba(245,240,232,0.35)" }} />
+                        style={{ color: active ? "#a6731d" : "rgba(48,52,59,0.58)" }} />
                       Super Admin
                     </Link>
                   </li>
@@ -196,24 +196,23 @@ export default function Sidebar({
       </nav>
 
       {/* Divider */}
-      <div className="relative z-10 mx-5 h-px" style={{ background: "rgba(201,168,76,0.12)" }} />
+      <div className="relative z-10 mx-5 h-px" style={{ background: "rgba(92,78,56,0.12)" }} />
 
-      {/* User + Logout */}
       <div className="relative z-10 px-3 pb-5 pt-3">
         <Link
           href="/profile"
           onClick={onClose}
           className="flex items-center gap-3 px-2.5 py-2.5 rounded-xl transition-all mb-1"
-          style={{ background: "rgba(201,168,76,0.07)" }}>
+          style={{ background: "rgba(201,168,76,0.08)" }}>
           <div className="w-7 h-7 rounded-full shrink-0 flex items-center justify-center text-[11px] font-bold border"
-            style={{ background: "rgba(201,168,76,0.2)", borderColor: "rgba(201,168,76,0.3)", color: "#c9a84c" }}>
+            style={{ background: "rgba(201,168,76,0.18)", borderColor: "rgba(156,131,91,0.25)", color: "#8b5e1b" }}>
             {initials}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-[13px] font-semibold truncate leading-none" style={{ color: "#f5f0e8" }}>
+            <p className="text-[13px] font-semibold truncate leading-none" style={{ color: "#30343b" }}>
               {profile?.displayName || "Student"}
             </p>
-            <p className="text-[11px] mt-0.5" style={{ color: "rgba(201,168,76,0.5)" }}>
+            <p className="text-[11px] mt-0.5" style={{ color: "rgba(48,52,59,0.62)" }}>
               {roleLabel}
             </p>
           </div>
@@ -221,7 +220,7 @@ export default function Sidebar({
         <button
           onClick={() => { onClose?.(); logout(); }}
           className="flex items-center gap-3 w-full px-2.5 py-2 rounded-lg text-[13px] font-medium transition-all"
-          style={{ color: "rgba(245,240,232,0.35)" }}>
+          style={{ color: "rgba(48,52,59,0.7)" }}>
           <LogOut size={14} className="shrink-0" />
           Sign Out
         </button>

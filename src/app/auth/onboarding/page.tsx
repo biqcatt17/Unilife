@@ -139,8 +139,8 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-screen flex bg-[#f8f9fc]">
       {/* Left panel */}
-      <div className="hidden lg:flex lg:w-[42%] flex-col justify-between p-14 relative overflow-hidden"
-        style={{ background: "linear-gradient(160deg, #0a1f15 0%, #0e3326 50%, #0f4535 100%)" }}>
+      <div className="hidden lg:flex lg:w-[42%] flex-col justify-between p-14 relative overflow-hidden paper-login-hero"
+        style={{ background: "linear-gradient(160deg, rgba(249,242,228,1) 0%, rgba(242,232,214,1) 50%, rgba(238,227,207,1) 100%)" }}>
         {/* Geometric SVG */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -159,13 +159,13 @@ export default function OnboardingPage() {
           style={{ background: "radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%)" }} />
 
         <div className="flex items-center gap-3 relative z-10">
-          <div className="w-10 h-10 rounded-2xl flex items-center justify-center border border-[rgba(201,168,76,0.3)]"
-            style={{ background: "rgba(201,168,76,0.15)" }}>
-            <GraduationCap className="w-5 h-5" style={{ color: "#c9a84c" }} />
+          <div className="w-10 h-10 rounded-2xl flex items-center justify-center border border-[rgba(156,131,91,0.25)]"
+            style={{ background: "rgba(201,168,76,0.16)" }}>
+            <GraduationCap className="w-5 h-5" style={{ color: "#8b5e1b" }} />
           </div>
           <div>
-            <p className="text-white font-bold text-[17px] leading-none tracking-tight">UniLife</p>
-            <p className="text-[11px] mt-0.5" style={{ color: "rgba(201,168,76,0.6)" }}>Student Portal</p>
+            <p className="text-[#30343b] font-bold text-[17px] leading-none tracking-tight">UniLife</p>
+            <p className="text-[11px] mt-0.5" style={{ color: "rgba(48,52,59,0.68)" }}>Student Portal</p>
           </div>
         </div>
 
@@ -177,7 +177,7 @@ export default function OnboardingPage() {
           <h1 className="text-[32px] font-bold text-white leading-[1.2] mb-3 tracking-tight">
             Hi, {profile?.displayName?.split(" ")[0] || "there"}! 👋
           </h1>
-          <p className="text-[15px] mb-10 leading-relaxed max-w-xs" style={{ color: "rgba(245,240,232,0.45)" }}>
+          <p className="text-[15px] mb-10 leading-relaxed max-w-xs" style={{ color: "rgba(48,52,59,0.64)" }}>
             Just a couple of quick steps and you'll be all set. It only takes 30 seconds.
           </p>
 
@@ -187,22 +187,22 @@ export default function OnboardingPage() {
               <div key={s} className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all duration-300"
                   style={{
-                    background: i < step ? "#c9a84c" : i === step ? "#fff" : "rgba(255,255,255,0.08)",
-                    color:      i < step ? "#0a1f15" : i === step ? "#0a1f15" : "rgba(255,255,255,0.3)",
+                    background: i < step ? "#b98a2e" : i === step ? "#fff" : "rgba(255,255,255,0.08)",
+                    color:      i < step ? "#30343b" : i === step ? "#30343b" : "rgba(48,52,59,0.42)",
                   }}>
                   {i < step ? <CheckCircle size={14} /> : i + 1}
                 </div>
                 <span className="text-sm font-medium transition-all duration-300"
                   style={{ color: i === step ? "#fff" : "rgba(255,255,255,0.3)" }}>{s}</span>
                 {i === step && (
-                  <div className="ml-auto w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#c9a84c" }} />
+                  <div className="ml-auto w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#b98a2e" }} />
                 )}
               </div>
             ))}
           </div>
         </div>
 
-        <p className="relative z-10 text-[11px]" style={{ color: "rgba(201,168,76,0.3)" }}>Built for students, by students.</p>
+        <p className="relative z-10 text-[11px]" style={{ color: "rgba(48,52,59,0.42)" }}>Built for students, by students.</p>
       </div>
 
       {/* Right panel */}
@@ -212,7 +212,7 @@ export default function OnboardingPage() {
           <div className="flex items-center justify-between mb-8 lg:hidden">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, #0e3326, #0f4535)" }}>
+                style={{ background: "linear-gradient(135deg, #b98a2e, #8b5e1b)" }}>
                 <GraduationCap className="w-5 h-5 text-white" />
               </div>
               <span className="font-bold text-slate-900 text-lg tracking-tight">UniLife</span>
@@ -228,7 +228,7 @@ export default function OnboardingPage() {
               <div key={i} className="h-1.5 rounded-full transition-all duration-300"
                 style={{
                   width:      i === step ? 24 : 8,
-                  background: i < step ? "#c9a84c" : i === step ? "#0e3326" : "#e2e8f0",
+                  background: i < step ? "#c9a84c" : i === step ? "#b98a2e" : "#e2e8f0",
                 }} />
             ))}
           </div>
@@ -237,7 +237,7 @@ export default function OnboardingPage() {
           <div className="hidden lg:flex items-center gap-2 mb-8">
             <div className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
               <div className="h-full rounded-full transition-all duration-500"
-                style={{ width: `${((step + 1) / STEPS.length) * 100}%`, background: "#0e3326" }} />
+                style={{ width: `${((step + 1) / STEPS.length) * 100}%`, background: "#b98a2e" }} />
             </div>
             <span className="text-xs text-gray-400 font-medium shrink-0">Step {step + 1} of {STEPS.length}</span>
           </div>
@@ -366,13 +366,13 @@ export default function OnboardingPage() {
               {step < STEPS.length - 1 ? (
                 <button onClick={next}
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-white text-sm font-semibold transition-all duration-200 hover:brightness-110 active:scale-[0.98]"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #0f4535)" }}>
+                  style={{ background: "linear-gradient(135deg, #b98a2e, #8b5e1b)" }}>
                   Continue <ArrowRight size={15} />
                 </button>
               ) : (
                 <button onClick={handleFinish} disabled={saving}
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-white text-sm font-semibold transition-all duration-200 hover:brightness-110 active:scale-[0.98] disabled:opacity-60"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #0f4535)" }}>
+                  style={{ background: "linear-gradient(135deg, #b98a2e, #8b5e1b)" }}>
                   {saving
                     ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     : null}

@@ -240,7 +240,7 @@ export default function NotesPage() {
             </div>
             <button onClick={newNote}
               className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-white text-[12px] font-semibold transition-all hover:brightness-110 active:scale-[0.97]"
-              style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+              style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
               <Plus size={13} /> New
             </button>
           </div>
@@ -251,7 +251,7 @@ export default function NotesPage() {
               <Search size={12} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
               <input value={search} onChange={e => setSearch(e.target.value)}
                 placeholder="Search notes…"
-                className="w-full pl-8 pr-3 py-2 rounded-xl bg-white border border-[#e0dbd2] text-[12px] outline-none focus:border-[#0e3326] focus:ring-1 focus:ring-[rgba(14,51,38,0.1)] placeholder-slate-400 transition-all" />
+                className="w-full pl-8 pr-3 py-2 rounded-xl bg-white border border-[#e0dbd2] text-[12px] outline-none focus:border-[#b98a2e] focus:ring-1 focus:ring-[rgba(201,168,76,0.14)] placeholder-slate-400 transition-all" />
             </div>
           </div>
 
@@ -261,7 +261,7 @@ export default function NotesPage() {
               <div className="relative">
                 <BookOpen size={12} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
                 <select value={filterCourse} onChange={e => setFilterCourse(e.target.value)}
-                  className="w-full pl-8 pr-6 py-2 rounded-xl bg-white border border-[#e0dbd2] text-[12px] outline-none focus:border-[#0e3326] text-slate-600 appearance-none cursor-pointer">
+                  className="w-full pl-8 pr-6 py-2 rounded-xl bg-white border border-[#e0dbd2] text-[12px] outline-none focus:border-[#b98a2e] text-slate-600 appearance-none cursor-pointer">
                   <option value="all">All courses</option>
                   {courses.map(c => <option key={c.id} value={c.id}>{c.code} — {c.name}</option>)}
                 </select>
@@ -286,7 +286,7 @@ export default function NotesPage() {
                 </p>
                 {!search && (
                   <button onClick={newNote}
-                    className="text-[12px] font-semibold hover:underline mt-1" style={{ color: "#0e3326" }}>
+                    className="text-[12px] font-semibold hover:underline mt-1" style={{ color: "#b98a2e" }}>
                     Create your first note →
                   </button>
                 )}
@@ -311,7 +311,7 @@ export default function NotesPage() {
                                 isActive ? "shadow-sm" : "hover:bg-[#ece8e1]"
                               }`}
                               style={isActive
-                                ? { background: "linear-gradient(135deg, #0e3326, #175c3a)" }
+                                ? { background: "linear-gradient(135deg, #b98a2e, #a6731d)" }
                                 : {}}>
                               <div className="flex items-stretch">
                                 {/* Color bar */}
@@ -357,7 +357,7 @@ export default function NotesPage() {
             /* Empty / welcome state */
             <div className="flex-1 flex flex-col items-center justify-center gap-5 text-center p-8">
               <div className="w-20 h-20 rounded-3xl flex items-center justify-center shadow-sm"
-                style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                 <FileText size={32} className="text-white/80" />
               </div>
               <div>
@@ -368,7 +368,7 @@ export default function NotesPage() {
               </div>
               <button onClick={newNote}
                 className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97]"
-                style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                 <Plus size={15} /> New Note
               </button>
             </div>
@@ -432,7 +432,7 @@ export default function NotesPage() {
 
                   <button onClick={() => handleSave()} disabled={saving}
                     className="px-3.5 py-1.5 rounded-xl text-white text-[12px] font-semibold transition-all hover:brightness-110 active:scale-[0.97] disabled:opacity-50"
-                    style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                    style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                     Save
                   </button>
                 </div>

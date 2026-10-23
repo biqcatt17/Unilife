@@ -24,10 +24,10 @@ type Tab        = "overview" | "requests" | "users" | "classes";
 type ReqFilter  = "pending" | "approved" | "rejected";
 type RoleFilter = "all" | "student" | "admin" | "superadmin";
 
-const INPUT_CLS = "w-full px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm text-slate-800 outline-none transition-all focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)] bg-white";
+const INPUT_CLS = "w-full px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm text-slate-800 outline-none transition-all focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)] bg-white";
 
 const ROLE_STYLES: Record<string, { bg: string; color: string }> = {
-  student:    { bg: "rgba(14,51,38,0.08)",  color: "#0e3326"  },
+  student:    { bg: "rgba(201,168,76,0.12)",  color: "#b98a2e"  },
   admin:      { bg: "#fffbeb",              color: "#b45309"  },
   superadmin: { bg: "#f5f3ff",              color: "#6d28d9"  },
 };
@@ -89,7 +89,7 @@ function RoleChangeModal({ user: target, newRole, hasClass, onConfirm, onCancel 
             </button>
             <button onClick={onConfirm}
               className="flex-1 py-2.5 rounded-xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97]"
-              style={{ background: isSuperadmin ? "#6d28d9" : isDemotion ? "#dc2626" : "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+              style={{ background: isSuperadmin ? "#6d28d9" : isDemotion ? "#dc2626" : "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
               Confirm
             </button>
           </div>
@@ -290,54 +290,97 @@ export default function SuperAdminPage() {
         </div>
       )}
 
-      {/* ── Header ─────────────────────────────────────────── */}
-      <header className="sticky top-0 z-10 border-b"
-        style={{ background: "linear-gradient(180deg, #071710, #0e3326)", borderColor: "rgba(201,168,76,0.15)" }}>
-        <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
+      <header className="sticky top-0 z-20 border-b border-[#d7b46b] bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.62),_transparent_34%),linear-gradient(135deg,#f8eed8_0%,#f1d28d_24%,#d9ab50_100%)] shadow-[0_12px_30px_rgba(120,90,32,0.12)]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center border"
-              style={{ background: "rgba(201,168,76,0.15)", borderColor: "rgba(201,168,76,0.3)" }}>
-              <Crown size={14} style={{ color: "#c9a84c" }} />
+            <div className="w-11 h-11 rounded-2xl flex items-center justify-center border border-[#b98a2e]/30 bg-[#fffaf0]/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
+              <Crown size={18} className="text-[#8a5d12]" />
             </div>
             <div>
-              <p className="font-bold text-[15px] leading-none" style={{ color: "#f5f0e8" }}>UniLife</p>
-              <p className="text-[10px] mt-0.5 font-semibold uppercase tracking-widest" style={{ color: "rgba(201,168,76,0.6)" }}>
-                Super Admin
-              </p>
+              <p className="font-bold text-[15px] leading-none text-[#3e2c16]">UniLife</p>
+              <p className="text-[10px] mt-1 font-semibold uppercase tracking-[0.24em] text-[#7a4f12]">Super Admin</p>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-[12px] hidden sm:block" style={{ color: "rgba(245,240,232,0.5)" }}>
-              {profile.displayName || profile.email}
-            </span>
+
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="hidden sm:flex items-center gap-2 rounded-full border border-[#9c6b18]/20 bg-[#fffaf0]/55 px-3 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.12)]" />
+              <span className="text-[11px] font-medium text-[#4f3415]">{profile.displayName || profile.email}</span>
+            </div>
             <button onClick={() => { logout(); router.push("/auth/login"); }}
-              className="flex items-center gap-1.5 text-[12px] font-medium transition-colors hover:opacity-80"
-              style={{ color: "rgba(245,240,232,0.45)" }}>
+              className="flex items-center gap-1.5 rounded-full border border-[#8e6518]/20 bg-[#fffaf0]/55 px-3 py-1.5 text-[12px] font-medium text-[#4f3415] transition-all hover:bg-[#fffaf0]/70 active:scale-[0.98] shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
               <LogOut size={13} /> Sign out
             </button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:py-8">
+        <section className="mb-6 rounded-[30px] border border-[#e9dec7] bg-[linear-gradient(135deg,rgba(255,255,255,0.95),rgba(249,243,234,0.92))] p-4 sm:p-5 shadow-[0_16px_40px_rgba(67,51,21,0.07)]">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#b98a2e]">Operations dashboard</p>
+              <h1 className="mt-1 text-3xl sm:text-4xl text-[#30343b] leading-none">Super Admin</h1>
+            </div>
 
-        {/* ── Tabs ───────────────────────────────────────────── */}
-        <div className="flex gap-1 mb-6 bg-white border border-[#e8e4da] rounded-2xl p-1 w-fit shadow-sm">
-          {TABS.map(({ key, label, icon: Icon }) => (
-            <button key={key} onClick={() => setTab(key)}
-              className="relative flex items-center gap-1.5 px-4 py-2 rounded-xl text-[13px] font-semibold transition-all"
-              style={tab === key
-                ? { background: "linear-gradient(135deg, #0e3326, #175c3a)", color: "#fff" }
-                : { color: "#94a3b8" }}>
-              <Icon size={13} />
-              {label}
-              {key === "requests" && stats?.pendingReqs > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none">
-                  {stats.pendingReqs}
+            <div className="flex flex-wrap gap-2">
+              <div className="rounded-full border border-[#e8d7a1] bg-[#fff8e7] px-3 py-1.5 text-[11px] font-semibold text-[#9a6a18]">
+                {stats?.pendingReqs ?? 0} pending requests
+              </div>
+              <div className="rounded-full border border-[#d7dfd0] bg-[#f2f9f2] px-3 py-1.5 text-[11px] font-semibold text-[#37704a]">
+                {stats?.totalClasses ?? 0} active classes
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="mb-6 flex w-full flex-wrap gap-2 rounded-[28px] border border-[#ebdcc2] bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(249,243,234,0.95))] p-2 shadow-[0_18px_40px_rgba(94,79,44,0.08)] sm:w-fit">
+          {TABS.map(({ key, label, icon: Icon }) => {
+            const isActive = tab === key;
+            const isRequestTab = key === "requests";
+
+            return (
+              <button
+                key={key}
+                onClick={() => setTab(key)}
+                className="group relative flex items-center gap-2 rounded-[18px] border px-3.5 py-2.5 text-[12px] font-semibold transition-all duration-200 sm:px-4"
+                style={
+                  isActive
+                    ? {
+                        background: "linear-gradient(135deg, #d9a94b 0%, #b98a2e 38%, #9d731a 100%)",
+                        color: "#fffaf3",
+                        borderColor: "rgba(155, 117, 35, 0.38)",
+                        boxShadow: "0 12px 26px rgba(185,138,46,0.22)",
+                      }
+                    : {
+                        background: "rgba(255,255,255,0.52)",
+                        color: "#5d5e58",
+                        borderColor: "rgba(255,255,255,0.5)",
+                      }
+                }
+              >
+                <span
+                  className="flex h-6 w-6 items-center justify-center rounded-[10px] border"
+                  style={
+                    isActive
+                      ? { background: "rgba(255,255,255,0.16)", borderColor: "rgba(255,255,255,0.3)" }
+                      : { background: "rgba(201,168,76,0.10)", borderColor: "rgba(201,168,76,0.22)" }
+                  }
+                >
+                  <Icon size={12} />
                 </span>
-              )}
-            </button>
-          ))}
+                <span>{label}</span>
+                {isRequestTab && stats?.pendingReqs > 0 && (
+                  <span
+                    className="ml-0.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[9px] font-bold leading-none text-white"
+                    style={{ background: isActive ? "#f87171" : "#ef4444" }}
+                  >
+                    {stats.pendingReqs}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
 
         {/* ── OVERVIEW ───────────────────────────────────────── */}
@@ -349,37 +392,39 @@ export default function SuperAdminPage() {
               </div>
             ) : stats && (
               <>
-                {/* Stat cards */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 stagger">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {[
-                    { icon: Users,        label: "Total Users",  value: stats.totalUsers,    color: "#0e3326", bg: "rgba(14,51,38,0.08)"  },
-                    { icon: GraduationCap, label: "Students",    value: stats.totalStudents, color: "#16a34a", bg: "#f0fdf4"               },
-                    { icon: ShieldCheck,  label: "Class Reps",   value: stats.totalAdmins,   color: "#b45309", bg: "#fffbeb"               },
-                    { icon: Building2,    label: "Classes",      value: stats.totalClasses,  color: "#6d28d9", bg: "#f5f3ff"               },
+                    { icon: Users,        label: "Total Users",  value: stats.totalUsers,    color: "#b98a2e", bg: "rgba(201,168,76,0.12)" },
+                    { icon: GraduationCap, label: "Students",    value: stats.totalStudents, color: "#16a34a", bg: "#f0fdf4" },
+                    { icon: ShieldCheck,  label: "Class Reps", value: stats.totalAdmins,   color: "#b45309", bg: "#fffbeb" },
+                    { icon: Building2,    label: "Classes",    value: stats.totalClasses,  color: "#6d28d9", bg: "#f5f3ff" },
                   ].map(({ icon: Icon, label, value, color, bg }) => (
-                    <div key={label} className="bg-white rounded-2xl border border-[#e8e4da] p-4 card-lift">
-                      <div className="w-8 h-8 rounded-xl flex items-center justify-center mb-3" style={{ background: bg }}>
-                        <Icon size={15} style={{ color }} />
+                    <div key={label} className="bg-white rounded-[26px] border border-[#e8e4da] p-4 shadow-[0_12px_26px_rgba(36,28,14,0.04)] transition-transform hover:-translate-y-0.5">
+                      <div className="w-10 h-10 rounded-2xl flex items-center justify-center mb-3" style={{ background: bg }}>
+                        <Icon size={16} style={{ color }} />
                       </div>
-                      <p className="text-[26px] font-bold leading-none mb-1 text-slate-900">{value}</p>
-                      <p className="text-[12px] text-slate-400 font-medium">{label}</p>
+                      <p className="text-[26px] font-bold leading-none mb-1 text-[#30343b]">{value}</p>
+                      <p className="text-[12px] font-semibold text-slate-500">{label}</p>
                     </div>
                   ))}
                 </div>
 
-                {/* Applications summary */}
-                <div className="bg-white rounded-2xl border border-[#e8e4da] p-5">
-                  <p className="text-[13px] font-semibold text-slate-800 mb-4">Class Rep Applications</p>
+                <div className="bg-white rounded-[28px] border border-[#e8e4da] p-5 shadow-[0_14px_32px_rgba(36,28,14,0.04)]">
+                  <div className="flex items-center justify-between mb-4">
+                    <p className="text-[13px] font-semibold text-slate-800">Class Rep Applications</p>
+                    <span className="text-[11px] font-medium text-slate-400">Live overview</span>
+                  </div>
+
                   <div className="grid grid-cols-3 gap-3 mb-4">
                     {[
-                      { label: "Pending",  value: stats.pendingReqs,  key: "pending"  },
+                      { label: "Pending",  value: stats.pendingReqs,  key: "pending" },
                       { label: "Approved", value: stats.approvedReqs, key: "approved" },
                       { label: "Rejected", value: stats.rejectedReqs, key: "rejected" },
                     ].map(({ label, value, key }) => {
                       const cfg = STATUS_CFG[key];
                       const Icon = cfg.icon;
                       return (
-                        <div key={label} className="rounded-2xl px-4 py-3 border"
+                        <div key={label} className="rounded-[22px] px-4 py-3 border"
                           style={{ background: cfg.bg, borderColor: `${cfg.color}22` }}>
                           <Icon size={14} style={{ color: cfg.color }} />
                           <p className="text-[26px] font-bold leading-none mt-2" style={{ color: cfg.color }}>{value}</p>
@@ -388,9 +433,10 @@ export default function SuperAdminPage() {
                       );
                     })}
                   </div>
+
                   {stats.pendingReqs > 0 && (
                     <button onClick={() => setTab("requests")}
-                      className="w-full flex items-center justify-center gap-2 text-[13px] font-semibold py-2.5 rounded-xl border transition-all hover:brightness-95 active:scale-[0.98]"
+                      className="w-full flex items-center justify-center gap-2 text-[13px] font-semibold py-2.75 rounded-[16px] border transition-all hover:brightness-95 active:scale-[0.98]"
                       style={{ background: "#fffbeb", borderColor: "#fde68a", color: "#b45309" }}>
                       <AlertCircle size={14} />
                       {stats.pendingReqs} pending request{stats.pendingReqs !== 1 ? "s" : ""} — review now
@@ -413,7 +459,7 @@ export default function SuperAdminPage() {
                   <button key={f} onClick={() => setReqFilter(f)}
                     className="px-3.5 py-1.5 rounded-full text-[12px] font-semibold capitalize transition-all active:scale-[0.97]"
                     style={reqFilter === f
-                      ? { background: "linear-gradient(135deg, #0e3326, #175c3a)", color: "#fff" }
+                      ? { background: "linear-gradient(135deg, #b98a2e, #a6731d)", color: "#fff" }
                       : { background: "#fff", color: "#64748b", border: "1px solid #e8e4da" }}>
                     {f}
                   </button>
@@ -441,7 +487,7 @@ export default function SuperAdminPage() {
                   <button className="w-full flex items-center gap-4 px-5 py-4 hover:bg-[#faf8f4] transition-colors text-left"
                     onClick={() => setExpanded(isOpen ? null : r.id)}>
                     <div className="w-9 h-9 rounded-full flex items-center justify-center text-white text-[11px] font-bold shrink-0"
-                      style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                      style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                       {initials(r.displayName || r.email)}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -488,7 +534,7 @@ export default function SuperAdminPage() {
                           </button>
                           <button onClick={() => handleApprove(r.id)} disabled={acting === r.id}
                             className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-white text-[12px] font-semibold transition-all hover:brightness-110 active:scale-[0.97] disabled:opacity-50"
-                            style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                            style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                             {acting === r.id
                               ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                               : <><Check size={13} /> Approve</>}
@@ -516,7 +562,7 @@ export default function SuperAdminPage() {
                 <Search size={13} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
                 <input type="text" placeholder="Search by name or email…"
                   value={search} onChange={e => setSearch(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 rounded-2xl border border-[#e8e4da] bg-white text-[13px] outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)]" />
+                  className="w-full pl-9 pr-4 py-2.5 rounded-2xl border border-[#e8e4da] bg-white text-[13px] outline-none focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)]" />
               </div>
               <div className="flex gap-1 bg-white border border-[#e8e4da] rounded-2xl p-1 shrink-0">
                 {(["all","student","admin","superadmin"] as RoleFilter[]).map(f => {
@@ -525,7 +571,7 @@ export default function SuperAdminPage() {
                     <button key={f} onClick={() => setRoleFilter(f)}
                       className="px-3 py-1.5 rounded-xl text-[11px] font-semibold transition-all whitespace-nowrap"
                       style={roleFilter === f
-                        ? { background: "linear-gradient(135deg, #0e3326, #175c3a)", color: "#fff" }
+                        ? { background: "linear-gradient(135deg, #b98a2e, #a6731d)", color: "#fff" }
                         : { color: "#94a3b8" }}>
                       {labels[f]}
                     </button>
@@ -560,7 +606,7 @@ export default function SuperAdminPage() {
                             <td className="px-4 py-3">
                               <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-[11px] font-bold shrink-0"
-                                  style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                                  style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                                   {initials(u.displayName || u.email)}
                                 </div>
                                 <div className="min-w-0">
@@ -584,7 +630,7 @@ export default function SuperAdminPage() {
                             <td className="px-4 py-3 text-right">
                               <select value={u.role} disabled={acting === u.uid}
                                 onChange={e => requestRoleChange(u, e.target.value)}
-                                className="text-[12px] border border-[#e8e4da] rounded-xl px-2.5 py-1.5 bg-white text-slate-600 outline-none cursor-pointer hover:border-[#0e3326] transition-colors disabled:opacity-50">
+                                className="text-[12px] border border-[#e8e4da] rounded-xl px-2.5 py-1.5 bg-white text-slate-600 outline-none cursor-pointer hover:border-[#b98a2e] transition-colors disabled:opacity-50">
                                 <option value="student">Student</option>
                                 <option value="admin">Class Rep</option>
                                 <option value="superadmin">Super Admin</option>
@@ -628,7 +674,7 @@ export default function SuperAdminPage() {
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
                           <span className="font-mono font-bold text-[13px] px-2.5 py-1 rounded-xl tracking-widest"
-                            style={{ background: "rgba(14,51,38,0.08)", color: "#0e3326" }}>
+                            style={{ background: "rgba(201,168,76,0.12)", color: "#b98a2e" }}>
                             {cls.joinCode}
                           </span>
                           <button onClick={() => handleDeleteClass(cls.id, cls.name)} disabled={acting === cls.id}

@@ -22,15 +22,15 @@ export default function Button({
     <button
       disabled={disabled || loading}
       className={clsx(
-        "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition-all duration-200",
+        "paper-button flex items-center justify-center gap-2 px-4 py-2.5 font-medium text-sm transition-all duration-200",
         fullWidth && "w-full",
         isPrimary   && "text-white hover:brightness-110 active:scale-[0.97] disabled:opacity-50",
-        variant === "secondary" && "bg-white text-slate-700 border border-[#e8e4da] hover:bg-[#f5f0e8] active:scale-[0.97] disabled:opacity-50",
+        variant === "secondary" && "bg-white text-slate-700 border border-[rgba(48,52,59,0.12)] hover:bg-[#f5f0e8] active:scale-[0.97] disabled:opacity-50",
         variant === "danger"    && "bg-red-500 text-white hover:bg-red-600 active:scale-[0.97] disabled:opacity-50",
         variant === "ghost"     && "bg-transparent hover:bg-[rgba(14,51,38,0.06)] active:scale-[0.97] disabled:opacity-50",
         className
       )}
-      style={isPrimary ? { background: "linear-gradient(135deg, #0e3326, #0f4535)", ...style } : style}
+      style={isPrimary ? { background: "linear-gradient(135deg, #c69c48, #b07f28)", borderRadius: 16, ...style } : style}
       {...props}
     >
       {loading ? (

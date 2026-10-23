@@ -141,175 +141,148 @@ export default function EventsPage() {
 
   return (
     <DashboardLayout>
-      {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Events</h1>
-          <p className="text-gray-500 text-sm mt-1">{upcoming} upcoming · {past} past</p>
-        </div>
-        <Button onClick={() => setShowModal(true)}>
-          <Plus size={16} /> Add Event
-        </Button>
-      </div>
-
-      {/* Filter Tabs */}
-      <div className="flex gap-2 mb-6">
-        {(["upcoming", "all", "past"] as const).map(f => (
-          <button key={f} onClick={() => setFilter(f)}
-            className="px-4 py-1.5 rounded-full text-sm font-medium transition-all border"
-            style={filter === f
-              ? { background: "linear-gradient(135deg, #0e3326, #0f4535)", color: "#fff", borderColor: "transparent" }
-              : { background: "#fff", color: "#64748b", borderColor: "#e8e4da" }}
-          >
-            {f.charAt(0).toUpperCase() + f.slice(1)}
-          </button>
-        ))}
-      </div>
-
-      {/* Events */}
-      {loading ? (
-        <div className="space-y-4">{[1,2,3].map(i => <div key={i} className="h-28 bg-gray-100 rounded-2xl animate-pulse" />)}</div>
-      ) : filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-24">
-          <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-4">
-            <Calendar className="w-8 h-8 text-gray-300" />
+      <div className="page-fade space-y-5">
+        <div className="notebook-header flex items-center justify-between flex-wrap gap-3 px-5 py-4 md:px-6">
+          <div>
+            <h1 className="text-4xl md:text-5xl text-slate-800 leading-none mb-1">Events</h1>
+            <p className="text-sm text-slate-500">{upcoming} upcoming · {past} past</p>
           </div>
-          <p className="text-gray-400 font-medium">No {filter} events</p>
-          <Button className="mt-5" onClick={() => setShowModal(true)}>
+          <Button onClick={() => setShowModal(true)}>
             <Plus size={16} /> Add Event
           </Button>
         </div>
-      ) : (
-        <div className="space-y-3">
-          {filtered.map(event => {
-            const date     = new Date(event.eventDate);
-            const isPast   = eventDateTime(event) < now;
-            const gradient = MONTH_GRADIENTS[date.getMonth()];
-            const isRsvped = myRsvps.some(r => r.eventId === event.id);
-            const count    = rsvpCounts[event.id] ?? 0;
 
-            return (
-              <div key={event.id} className={`bg-white rounded-2xl border border-gray-100 flex gap-5 items-start p-5 hover:shadow-sm transition-all ${isPast ? "opacity-60" : ""}`}>
-                {/* Date Badge */}
-                <div className={`bg-gradient-to-br ${gradient} rounded-2xl p-3 flex flex-col items-center justify-center min-w-[64px] shrink-0 shadow-sm`}>
-                  <span className="text-white/80 text-[10px] font-bold uppercase tracking-wide">
-                    {date.toLocaleString("default", { month: "short" })}
-                  </span>
-                  <span className="text-white text-2xl font-bold leading-none mt-0.5">{date.getDate()}</span>
-                  <span className="text-white/70 text-[10px] mt-0.5">{date.getFullYear()}</span>
-                </div>
+        <div className="paper-card p-3 md:p-4">
+          <div className="flex gap-2 mb-6 flex-wrap">
+            {(["upcoming", "all", "past"] as const).map(f => (
+              <button key={f} onClick={() => setFilter(f)}
+                className="px-4 py-1.5 rounded-full text-sm font-medium transition-all border"
+                style={filter === f
+                  ? { background: "linear-gradient(135deg, #d7b462, #b08431)", color: "#fffaf0", borderColor: "transparent" }
+                  : { background: "#f8f6f0", color: "#64748b", borderColor: "#e8e4da" }}
+              >
+                {f.charAt(0).toUpperCase() + f.slice(1)}
+              </button>
+            ))}
+          </div>
 
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="font-semibold text-gray-900 leading-snug">{event.title}</h3>
-                      {event.isClassWide && (
-                        <span className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600">
-                          <GraduationCap size={10} /> Class
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${isPast ? "bg-gray-100 text-gray-500" : "bg-green-100 text-green-700"}`}>
-                        {isPast ? "Past" : "Upcoming"}
+          {loading ? (
+            <div className="space-y-4">{[1,2,3].map(i => <div key={i} className="h-28 bg-[#f5f2ec] border border-[#e8e4da] rounded-2xl animate-pulse" />)}</div>
+          ) : filtered.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-24">
+              <div className="w-16 h-16 bg-[#f5f2ec] border border-[#e8e4da] rounded-2xl flex items-center justify-center mb-4">
+                <Calendar className="w-8 h-8 text-slate-300" />
+              </div>
+              <p className="text-slate-500 font-medium">No {filter} events</p>
+              <Button className="mt-5" onClick={() => setShowModal(true)}>
+                <Plus size={16} /> Add Event
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {filtered.map(event => {
+                const date     = new Date(event.eventDate);
+                const isPast   = eventDateTime(event) < now;
+                const gradient = MONTH_GRADIENTS[date.getMonth()];
+                const isRsvped = myRsvps.some(r => r.eventId === event.id);
+                const count    = rsvpCounts[event.id] ?? 0;
+
+                return (
+                  <div key={event.id} className={`paper-card flex gap-5 items-start p-5 transition-all ${isPast ? "opacity-60" : ""}`}>
+                    <div className={`bg-gradient-to-br ${gradient} rounded-2xl p-3 flex flex-col items-center justify-center min-w-[64px] shrink-0 shadow-sm`}>
+                      <span className="text-white/80 text-[10px] font-bold uppercase tracking-wide">
+                        {date.toLocaleString("default", { month: "short" })}
                       </span>
-                      {canDelete(event) && (
-                        <button onClick={() => handleDelete(event.id)} className="text-gray-300 hover:text-red-400 transition-colors">
-                          <Trash2 size={15} />
-                        </button>
-                      )}
+                      <span className="text-white text-2xl font-bold leading-none mt-0.5">{date.getDate()}</span>
+                      <span className="text-white/70 text-[10px] mt-0.5">{date.getFullYear()}</span>
                     </div>
-                  </div>
 
-                  {event.description && (
-                    <p className="text-sm text-gray-500 mt-1 leading-relaxed">{event.description}</p>
-                  )}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h3 className="text-2xl text-slate-800 leading-snug">{event.title}</h3>
+                          {event.isClassWide && (
+                            <span className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600">
+                              <GraduationCap size={10} /> Class
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${isPast ? "bg-slate-100 text-slate-500" : "bg-green-100 text-green-700"}`}>
+                            {isPast ? "Past" : "Upcoming"}
+                          </span>
+                          {canDelete(event) && (
+                            <button onClick={() => handleDelete(event.id)} className="text-slate-300 hover:text-red-400 transition-colors">
+                              <Trash2 size={15} />
+                            </button>
+                          )}
+                        </div>
+                      </div>
 
-                  <div className="flex items-center gap-4 mt-2 flex-wrap">
-                    <span className="flex items-center gap-1.5 text-xs text-gray-400">
-                      <Clock size={12} />
-                      {date.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
-                      {event.eventTime && (
-                        <span className="font-medium text-slate-600">· {(() => {
-                          const [h, m] = event.eventTime.split(":").map(Number);
-                          return `${h % 12 || 12}:${String(m).padStart(2,"0")} ${h >= 12 ? "PM" : "AM"}`;
-                        })()}</span>
+                      {event.description && (
+                        <p className="text-sm text-slate-600 mt-2 leading-relaxed">{event.description}</p>
                       )}
-                    </span>
-                    {event.location && (
-                      <span className="flex items-center gap-1.5 text-xs text-blue-500 font-medium">
-                        <MapPin size={12} /> {event.location}
-                      </span>
-                    )}
-                    <span className="flex items-center gap-1.5 text-xs text-gray-400">
-                      <Users size={12} /> {count} going
-                    </span>
-                  </div>
 
-                  {/* RSVP button — only for upcoming events */}
-                  {!isPast && (
-                    <div className="mt-3">
-                      <button
-                        onClick={() => handleRSVP(event.id)}
-                        disabled={rsvpLoading[event.id]}
-                        className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all disabled:opacity-50 ${
-                          isRsvped
-                            ? "bg-green-100 text-green-700 hover:bg-red-50 hover:text-red-600"
-                            : "text-white"
-                        }`}
-                        style={!isRsvped ? { background: "linear-gradient(135deg, #0e3326, #0f4535)" } : undefined}
-                      >
-                        {isRsvped ? <><Check size={13} /> Going</> : <><Plus size={13} /> RSVP</>}
+                      <div className="mt-3 flex flex-wrap gap-4 text-xs text-slate-500">
+                        <span className="inline-flex items-center gap-1.5"><Calendar size={12} /> {date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" })}</span>
+                        {event.eventTime && <span className="inline-flex items-center gap-1.5"><Clock size={12} /> {event.eventTime}</span>}
+                        {event.location && <span className="inline-flex items-center gap-1.5"><MapPin size={12} /> {event.location}</span>}
+                        <span className="inline-flex items-center gap-1.5"><Users size={12} /> {count} RSVP{count === 1 ? "" : "s"}</span>
+                      </div>
+                    </div>
+
+                    <div className="shrink-0 self-center">
+                      <button onClick={() => handleRSVP(event.id)} disabled={rsvpLoading[event.id]}
+                        className={`px-4 py-2.5 rounded-2xl text-xs font-semibold transition-all ${
+                          isRsvped ? "bg-slate-100 text-slate-700 border border-slate-200" : "bg-[#d7b462] text-[#fffaf0] shadow-sm"
+                        } ${rsvpLoading[event.id] ? "opacity-60" : ""}`}>
+                        {rsvpLoading[event.id] ? "Saving..." : isRsvped ? "Going" : "RSVP"}
                       </button>
                     </div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-
-      {/* Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
-            <div className="flex items-center justify-between mb-5">
-              <div>
-                <h2 className="text-lg font-bold text-gray-900">Add New Event</h2>
-                <p className="text-sm text-gray-400 mt-0.5">Add a personal event to track and RSVP</p>
-              </div>
-              <button onClick={() => setShowModal(false)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors">
-                <X size={18} className="text-gray-400" />
-              </button>
+                  </div>
+                );
+              })}
             </div>
-            <form onSubmit={handleCreate} className="flex flex-col gap-4">
-              <Input label="Event Title *" placeholder="e.g. Mid-term Examination" value={form.title}
-                onChange={e => setForm(p => ({ ...p, title: e.target.value }))} />
-              <Input label="Description" placeholder="Details about the event…" value={form.description}
-                onChange={e => setForm(p => ({ ...p, description: e.target.value }))} />
-              <div className="grid grid-cols-2 gap-3">
-                <Input label="Date *" type="date" value={form.eventDate}
-                  onChange={e => setForm(p => ({ ...p, eventDate: e.target.value }))} />
-                <Input label="Time" type="time" value={form.eventTime}
-                  onChange={e => setForm(p => ({ ...p, eventTime: e.target.value }))} />
-              </div>
-              <Input label="Location" placeholder="e.g. Room 101" value={form.location}
-                onChange={e => setForm(p => ({ ...p, location: e.target.value }))} />
-              {profile?.role === "admin" && (
-                <p className="text-xs text-indigo-600 bg-indigo-50 rounded-lg px-3 py-2">
-                  To post a class-wide event visible to all students, use the Admin Panel.
-                </p>
-              )}
-              <div className="flex gap-3 mt-1">
-                <Button type="button" variant="secondary" fullWidth onClick={() => setShowModal(false)}>Cancel</Button>
-                <Button type="submit" fullWidth loading={saving}>Create Event</Button>
-              </div>
-            </form>
-          </div>
+          )}
         </div>
-      )}
+
+        {showModal && (
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="paper-card p-6 w-full max-w-md shadow-2xl">
+              <div className="flex items-center justify-between mb-5">
+                <div>
+                  <h2 className="text-3xl text-slate-800 leading-none">Add Event</h2>
+                  <p className="text-sm text-slate-500 mt-1">Create a campus event</p>
+                </div>
+                <button onClick={() => setShowModal(false)} className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-[#f5f2ec] transition-colors border border-[#e8e4da]">
+                  <X size={18} className="text-slate-400" />
+                </button>
+              </div>
+
+              <form onSubmit={handleCreate} className="space-y-4">
+                <Input label="Event Title *" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} placeholder="Campus workshop" />
+                <Input label="Location" value={form.location} onChange={e => setForm(p => ({ ...p, location: e.target.value }))} placeholder="Main Hall" />
+                <div className="grid grid-cols-2 gap-3">
+                  <Input label="Date *" type="date" value={form.eventDate} onChange={e => setForm(p => ({ ...p, eventDate: e.target.value }))} />
+                  <Input label="Time" type="time" value={form.eventTime} onChange={e => setForm(p => ({ ...p, eventTime: e.target.value }))} />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">Description</label>
+                  <textarea value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))}
+                    className="paper-input w-full px-3 py-2.5 text-sm outline-none resize-none min-h-[100px] text-slate-700"
+                    placeholder="What should people know?"
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-1">
+                  <Button type="button" variant="secondary" fullWidth onClick={() => setShowModal(false)}>Cancel</Button>
+                  <Button type="submit" fullWidth loading={saving}>Create Event</Button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
     </DashboardLayout>
   );
 }

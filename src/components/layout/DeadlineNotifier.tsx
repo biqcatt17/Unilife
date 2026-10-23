@@ -61,11 +61,11 @@ export default function DeadlineNotifier() {
       {/* Bell button */}
       <button
         onClick={() => setOpen(o => !o)}
-        className="relative w-9 h-9 flex items-center justify-center rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+        className="relative w-9 h-9 flex items-center justify-center rounded-xl text-[#30343b]/80 hover:text-[#30343b] hover:bg-[#f7efe0] transition-colors border border-[#e9e1d1] bg-white/70 shadow-sm"
       >
         <Bell size={18} />
         {count > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 rounded-full text-[10px] text-white font-bold flex items-center justify-center leading-none">
+          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#f28b82] rounded-full text-[10px] text-white font-bold flex items-center justify-center leading-none shadow-sm">
             {count > 9 ? "9+" : count}
           </span>
         )}
@@ -73,14 +73,14 @@ export default function DeadlineNotifier() {
 
       {/* Dropdown panel */}
       {open && (
-        <div className="absolute right-0 top-11 w-80 bg-white rounded-2xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+        <div className="absolute right-0 top-11 w-80 paper-card z-50 overflow-hidden bg-[#fffdf8] border border-[#e8e1d1]">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-[#efe6d7] bg-[#f7f2e8]">
             <div className="flex items-center gap-2">
-              <Bell size={14} className="text-gray-500" />
-              <p className="text-sm font-bold text-gray-900">Upcoming Deadlines</p>
+              <Bell size={14} className="text-[#5a5a52]" />
+              <p className="text-sm font-bold text-[#30343b] handwritten text-[1.3rem] leading-none">Upcoming Deadlines</p>
             </div>
-            <button onClick={() => setOpen(false)} className="text-gray-400 hover:text-gray-600">
+            <button onClick={() => setOpen(false)} className="text-[#77766f] hover:text-[#30343b]">
               <X size={15} />
             </button>
           </div>
@@ -91,11 +91,11 @@ export default function DeadlineNotifier() {
               <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-2">
                 <Bell size={16} className="text-green-500" />
               </div>
-              <p className="text-sm text-gray-500 font-medium">All caught up</p>
-              <p className="text-xs text-gray-400 mt-0.5">No tasks due in the next 3 days</p>
+              <p className="text-sm text-[#30343b] font-medium">All caught up</p>
+              <p className="text-xs text-[#77766f] mt-0.5">No tasks due in the next 3 days</p>
             </div>
           ) : (
-            <ul className="max-h-72 overflow-y-auto divide-y divide-gray-50">
+            <ul className="max-h-72 overflow-y-auto divide-y divide-[#f3ead9]">
               {tasks.map(task => {
                 const diff = daysDiff(task.dueDate, today);
                 const u    = urgencyLabel(diff);
@@ -130,7 +130,7 @@ export default function DeadlineNotifier() {
           <Link
             href="/tasks"
             onClick={() => setOpen(false)}
-            className="flex items-center justify-between px-4 py-3 border-t border-gray-100 text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors"
+            className="flex items-center justify-between px-4 py-3 border-t border-[#efe6d7] text-sm font-medium text-[#1e4a3f] hover:bg-[#f4efe6] transition-colors"
           >
             View all tasks
             <ChevronRight size={14} />

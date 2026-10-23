@@ -70,8 +70,8 @@ function SectionHeader({ icon: Icon, title, action }: {
     <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-[#f5f2ec]">
       <div className="flex items-center gap-2.5">
         <div className="w-7 h-7 rounded-lg flex items-center justify-center"
-          style={{ background: "rgba(14,51,38,0.07)" }}>
-          <Icon size={13} style={{ color: "#0e3326" }} />
+          style={{ background: "rgba(201,168,76,0.18)" }}>
+          <Icon size={13} style={{ color: "#b98a2e" }} />
         </div>
         <h3 className="font-semibold text-slate-800 text-[13px]">{title}</h3>
       </div>
@@ -114,7 +114,7 @@ function FormField({ label, children, hint }: { label: string; children: React.R
   );
 }
 
-const INPUT_CLS = "w-full px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm text-slate-800 outline-none transition-all placeholder:text-slate-300 focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)] bg-white";
+const INPUT_CLS = "w-full px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm text-slate-800 outline-none transition-all placeholder:text-slate-300 focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)] bg-white";
 
 export default function ProfilePage() {
   const { user, profile, refetchProfile } = useAuth();
@@ -307,7 +307,7 @@ export default function ProfilePage() {
   const roleBadgeStyle = isSuperAdmin
     ? { background: "rgba(201,168,76,0.15)", color: "#b8872a", border: "1px solid rgba(201,168,76,0.25)" }
     : isAdmin
-    ? { background: "rgba(14,51,38,0.08)", color: "#0e3326", border: "1px solid rgba(14,51,38,0.15)" }
+    ? { background: "rgba(201,168,76,0.12)", color: "#b98a2e", border: "1px solid rgba(201,168,76,0.2)" }
     : { background: "#f5f2ec", color: "#64748b", border: "1px solid #edeae4" };
 
   return (
@@ -319,7 +319,7 @@ export default function ProfilePage() {
 
           {/* Banner */}
           <div className="relative overflow-hidden"
-            style={{ height: 120, background: "linear-gradient(140deg, #071710 0%, #0e3326 55%, #175c3a 100%)" }}>
+            style={{ height: 120, background: "linear-gradient(140deg, #f3e7d4 0%, #b98a2e 55%, #a6731d 100%)" }}>
             <GeoBg />
 
             {/* Top-right glow */}
@@ -351,7 +351,7 @@ export default function ProfilePage() {
               {/* Avatar */}
               <div className="relative shrink-0">
                 <div className="w-[88px] h-[88px] rounded-2xl shadow-lg overflow-hidden ring-[3px] ring-white"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                  style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                   {avatarUrl ? (
                     <Image src={avatarUrl} alt="Avatar" width={88} height={88} className="w-full h-full object-cover" />
                   ) : (
@@ -364,7 +364,7 @@ export default function ProfilePage() {
                   onClick={() => avatarInputRef.current?.click()}
                   disabled={uploadingAvatar}
                   className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full flex items-center justify-center shadow-md transition-all hover:scale-110 active:scale-95 disabled:opacity-50"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                  style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                   {uploadingAvatar
                     ? <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     : <Camera size={12} className="text-white" />}
@@ -393,7 +393,7 @@ export default function ProfilePage() {
 
             {/* Stats strip */}
             <div className="rounded-2xl overflow-hidden"
-              style={{ background: "linear-gradient(135deg, #071710, #0e3326)" }}>
+              style={{ background: "linear-gradient(135deg, #f3e7d4, #b98a2e)" }}>
               <div className="grid grid-cols-4 divide-x" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
                 <StatCard value={stats.sessions}  label="Sessions" icon={Flame}    color="#f97316" />
                 <StatCard value={stats.focusMins} label="Minutes"  icon={Clock}    color="#a78bfa" />
@@ -411,7 +411,7 @@ export default function ProfilePage() {
             title="Personal Information"
             action={!editing ? (
               <button onClick={() => setEditing(true)}
-                className="text-[12px] font-semibold transition-colors hover:opacity-70" style={{ color: "#0e3326" }}>
+                className="text-[12px] font-semibold transition-colors hover:opacity-70" style={{ color: "#b98a2e" }}>
                 Edit
               </button>
             ) : undefined}
@@ -465,7 +465,7 @@ export default function ProfilePage() {
                 </button>
                 <button type="submit" disabled={saving}
                   className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97] disabled:opacity-60"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                  style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                   {saving
                     ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     : <Save size={13} />}
@@ -504,7 +504,7 @@ export default function ProfilePage() {
                   <div className="flex items-center justify-between py-3">
                     <span className="text-sm text-slate-500">Join Code</span>
                     <span className="text-sm font-mono font-bold px-3 py-1 rounded-lg tracking-widest"
-                      style={{ color: "#0e3326", background: "rgba(14,51,38,0.08)" }}>
+                      style={{ color: "#b98a2e", background: "rgba(201,168,76,0.12)" }}>
                       {classInfo.joinCode}
                     </span>
                   </div>
@@ -515,7 +515,7 @@ export default function ProfilePage() {
             ) : isAdmin ? (
               <p className="text-sm text-slate-500">
                 Set up your class in the{" "}
-                <a href="/admin" className="underline font-semibold" style={{ color: "#0e3326" }}>Admin Panel</a>.
+                <a href="/admin" className="underline font-semibold" style={{ color: "#b98a2e" }}>Admin Panel</a>.
               </p>
             ) : (
               <div>
@@ -526,10 +526,10 @@ export default function ProfilePage() {
                   <input type="text" placeholder="e.g. ABC123"
                     value={joinCode} onChange={e => setJoinCode(e.target.value.toUpperCase())}
                     maxLength={6}
-                    className="flex-1 px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm font-mono uppercase tracking-widest outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)] bg-white" />
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm font-mono uppercase tracking-widest outline-none focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)] bg-white" />
                   <button type="submit" disabled={joining}
                     className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97] disabled:opacity-60"
-                    style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                    style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                     {joining
                       ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                       : <Users size={14} />}
@@ -549,7 +549,7 @@ export default function ProfilePage() {
               title="Class Rep Application"
               action={!myRequests.some(r => r.status === "pending" || r.status === "approved") && !showApply ? (
                 <button onClick={() => setShowApply(true)}
-                  className="text-[12px] font-semibold transition-colors hover:opacity-70" style={{ color: "#0e3326" }}>
+                  className="text-[12px] font-semibold transition-colors hover:opacity-70" style={{ color: "#b98a2e" }}>
                   + Apply
                 </button>
               ) : undefined}
@@ -589,7 +589,7 @@ export default function ProfilePage() {
                       {r.status === "approved" && (
                         <p className="text-xs text-green-600 mt-2 font-medium">
                           Approved!{" "}
-                          <a href="/admin" className="underline" style={{ color: "#0e3326" }}>Set up your class →</a>
+                          <a href="/admin" className="underline" style={{ color: "#b98a2e" }}>Set up your class →</a>
                         </p>
                       )}
                       {r.status === "rejected" && (
@@ -601,7 +601,7 @@ export default function ProfilePage() {
                             </div>
                           )}
                           <button onClick={() => { setShowApply(true); setApplyForm({ className: r.className, major: r.major, reason: "" }); }}
-                            className="text-xs font-semibold hover:underline" style={{ color: "#0e3326" }}>
+                            className="text-xs font-semibold hover:underline" style={{ color: "#b98a2e" }}>
                             Apply again →
                           </button>
                         </div>
@@ -639,7 +639,7 @@ export default function ProfilePage() {
                     </button>
                     <button type="submit" disabled={applying}
                       className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97] disabled:opacity-60"
-                      style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                      style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                       {applying && <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />}
                       Submit Application
                     </button>
@@ -656,7 +656,7 @@ export default function ProfilePage() {
           <div className="px-6 py-2 pb-3 divide-y divide-[#f8f5f0]">
             <div className="flex items-center justify-between py-3.5">
               <span className="text-sm text-slate-500">Role</span>
-              <span className="text-sm font-semibold" style={{ color: "#0e3326" }}>{roleLabel}</span>
+              <span className="text-sm font-semibold" style={{ color: "#b98a2e" }}>{roleLabel}</span>
             </div>
             <div className="flex items-center justify-between py-3.5">
               <span className="text-sm text-slate-500">Member since</span>

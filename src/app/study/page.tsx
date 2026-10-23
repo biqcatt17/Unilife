@@ -23,7 +23,7 @@ const COURSE_COLORS = [
   "#ef4444","#06b6d4","#f97316","#ec4899",
 ];
 
-const INPUT_CLS = "w-full px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm text-slate-800 outline-none transition-all placeholder:text-slate-300 focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)] bg-white";
+const INPUT_CLS = "w-full px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm text-slate-800 outline-none transition-all placeholder:text-slate-300 focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)] bg-white";
 
 function getWeekDates() {
   const today = new Date();
@@ -157,7 +157,7 @@ function NoteModal({
             </button>
             <button type="submit" disabled={saving}
               className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97] disabled:opacity-60"
-              style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+              style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
               {saving
                 ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 : <><Save size={13} /> {initial ? "Save Changes" : "Create Note"}</>}
@@ -297,7 +297,7 @@ export default function StudyPage() {
         <button
           onClick={() => tab === "notes" ? setShowNote(true) : setShowSession(true)}
           className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97]"
-          style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+          style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
           <Plus size={15} /> {tab === "notes" ? "New Note" : "Log Session"}
         </button>
       </div>
@@ -397,14 +397,14 @@ export default function StudyPage() {
             ) : recent.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                  style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                   <BookOpen size={28} className="text-white/70" />
                 </div>
                 <p className="font-semibold text-slate-600">No sessions logged yet</p>
                 <p className="text-sm text-slate-400 mt-1">Start logging your study sessions to build your streak.</p>
                 <button onClick={() => setShowSession(true)}
                   className="mt-5 flex items-center gap-2 px-5 py-2.5 rounded-2xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97]"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                  style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                   <Plus size={15} /> Log First Session
                 </button>
               </div>
@@ -437,7 +437,7 @@ export default function StudyPage() {
                               <div className="flex items-center gap-2">
                                 {c && (
                                   <span className="text-[11px] font-bold px-2 py-0.5 rounded-lg"
-                                    style={{ background: "rgba(14,51,38,0.08)", color: "#0e3326" }}>
+                                    style={{ background: "rgba(201,168,76,0.12)", color: "#b98a2e" }}>
                                     {c.code}
                                   </span>
                                 )}
@@ -479,11 +479,11 @@ export default function StudyPage() {
               <Search size={13} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
               <input placeholder="Search notes…" value={noteSearch}
                 onChange={e => setNoteSearch(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#0e3326] focus:ring-2 focus:ring-[rgba(14,51,38,0.07)] bg-white placeholder:text-slate-300" />
+                className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#b98a2e] focus:ring-2 focus:ring-[rgba(201,168,76,0.18)] bg-white placeholder:text-slate-300" />
             </div>
             {courses.length > 0 && (
               <select value={noteCourse} onChange={e => setNoteCourse(e.target.value)}
-                className="px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#0e3326] bg-white text-slate-600">
+                className="px-4 py-2.5 rounded-xl border border-[#e8e4da] text-sm outline-none focus:border-[#b98a2e] bg-white text-slate-600">
                 <option value="all">All Courses</option>
                 {courses.map(c => <option key={c.id} value={c.id}>{c.code} — {c.name}</option>)}
               </select>
@@ -497,7 +497,7 @@ export default function StudyPage() {
           ) : filteredNotes.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-center">
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
-                style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                 <FileText size={28} className="text-white/70" />
               </div>
               <p className="font-semibold text-slate-600">
@@ -507,7 +507,7 @@ export default function StudyPage() {
               {!noteSearch && noteCourse === "all" && (
                 <button onClick={() => setShowNote(true)}
                   className="mt-5 flex items-center gap-2 px-5 py-2.5 rounded-2xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97]"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                  style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                   <Plus size={15} /> Create First Note
                 </button>
               )}
@@ -539,7 +539,7 @@ export default function StudyPage() {
                       <div>
                         {course && (
                           <span className="text-[11px] font-bold px-2 py-0.5 rounded-lg"
-                            style={{ background: "rgba(14,51,38,0.08)", color: "#0e3326" }}>
+                            style={{ background: "rgba(201,168,76,0.12)", color: "#b98a2e" }}>
                             {course.code}
                           </span>
                         )}
@@ -617,7 +617,7 @@ export default function StudyPage() {
                 </button>
                 <button type="submit" disabled={saving}
                   className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-white text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.97] disabled:opacity-60"
-                  style={{ background: "linear-gradient(135deg, #0e3326, #175c3a)" }}>
+                  style={{ background: "linear-gradient(135deg, #b98a2e, #a6731d)" }}>
                   {saving
                     ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     : "Log Session"}
